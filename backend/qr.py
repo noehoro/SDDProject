@@ -7,22 +7,24 @@ class QR:
 		self.code = code 
 		self.code_image = None
 
-	def create_qr(self, data: int, ep: str):
+	def create_qr(self, ep: str) -> str:
 
-		self.code_image = qrcode.make(ep + data + self.code)
-		return code_image
+		self.code_image = qrcode.make(str(ep) + str(self.code))
+		return str(ep)+str(self.code_image)
 
 	def save_qr(self):
 
-		temp_code_num = rand.sample(range(1, 10000), 1) 
+		temp_code_num = rand.sample(range(1, 10000), 1)[0] 
+
+		print("TEMP CODE NUM:", temp_code_num)
+		print(self.code_image)
 
 		if self.code_image == None:
 			return -1
-		elif self.code_image.save('qr_'+ str(temp)) < 0:
-			return -1
+
+		self.code_image.save('qr_'+ str(temp_code_num) + '.png')
 
 		return 'qr_' + str(temp_code_num)
-
 
 
 

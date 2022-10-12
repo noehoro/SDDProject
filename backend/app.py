@@ -13,7 +13,7 @@ db.create_all()
 
 @app.route("/")
 def homepage():
-    return render_template("homepage.html")
+    return "running"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
