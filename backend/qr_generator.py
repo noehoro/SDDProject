@@ -2,6 +2,7 @@ import qrcode
 import webbrowser
 from qr import QR
 from flask import Blueprint, request, send_file
+import os
 
 qr_code = Blueprint('qr_code', __name__)
 
@@ -23,6 +24,7 @@ def create_code():
 
 		if routing_code == -1:
 		 	return "ERROR, Please Refresh the Page and Try again"
+
 
 		return send_file(routing_code + '.png', mimetype='image/png')
 

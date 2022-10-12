@@ -15,7 +15,6 @@ class Site(db.Model):
     def __repr__(self):
         return "<Site '{}'>".format(self.name)
 
-
 class User(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(), unique=True)
@@ -29,7 +28,7 @@ class User(db.Model):
 class Machine(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     time = db.Column(db.Integer())
-    site = db.Column(db.Integer(), db.ForeignKey('site.id'))
+    site_machine = db.Column(db.Integer(), db.ForeignKey('site.id'))
 
     def __repr__(self):
         return '<Machine {}>'.format(self.id)
@@ -37,7 +36,7 @@ class Machine(db.Model):
 class Activity(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     time = db.Column(db.Integer())
-    site = db.Column(db.Integer(), db.ForeignKey('site.id'))
+    site_activity = db.Column(db.Integer(), db.ForeignKey('site.id'))
 
     def __repr__(self):
         return '<Machine {}>'.format(self.id)
