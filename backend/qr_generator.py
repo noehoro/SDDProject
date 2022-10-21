@@ -1,19 +1,20 @@
 import qrcode
 import webbrowser
-from qr import QR
-from flask import Blueprint, request, send_file
+from classes.qr import QR
+from flask import Blueprint, request
+from datetime import *
 import os
 
 qr_code = Blueprint('qr_code', __name__)
 
 @qr_code.route('/create-code', methods = ['GET', 'POST'])
-def create_code():
+def create_code(is_new=0, code_int=0):
 
-	if request.method == 'POST':
-		
-		code_int = int(request.args['cde'])
-		
-		QRCode = QR(code_int)
+	QRCode = QR(code_int)
+
+	if is_new:
+		code_int = int(str(datetime.now().timestamp()).replace('.',''))
+		print(time)
 		QRCode.create_qr(request.base_url)
 
 		base = (request.base_url).split('create-code')[0]
@@ -25,14 +26,13 @@ def create_code():
 		if routing_code == -1:
 		 	return "ERROR, Please Refresh the Page and Try again"
 
+		return (routing_code + '.png')
 
-		return send_file(routing_code + '.png', mimetype='image/png')
-
-	elif request.method == 'GET':
-		return "qr"
+	#grab from database if not new
 
 	else: 
 		return "ERROR: "
+
 
 
 

@@ -9,8 +9,8 @@ db = SQLAlchemy()
 class Site(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String())
-    users = db.relationship('User', backref='site', lazy='dynamic')
-    machines = db.relationship('Machine', backref='site', lazy='dynamic')
+    users = db.relationship('User', backref='site_users', lazy='dynamic')
+    machines = db.relationship('Machine', backref='site_machines', lazy='dynamic')
 
     def __repr__(self):
         return "<Site '{}'>".format(self.name)
@@ -28,7 +28,7 @@ class User(db.Model):
 class Machine(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     time = db.Column(db.Integer())
-    site_machine = db.Column(db.Integer(), db.ForeignKey('site.id'))
+    site = db.Column(db.Integer(), db.ForeignKey('site.id'))
 
     def __repr__(self):
         return '<Machine {}>'.format(self.id)
@@ -36,7 +36,7 @@ class Machine(db.Model):
 class Activity(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     time = db.Column(db.Integer())
-    site_activity = db.Column(db.Integer(), db.ForeignKey('site.id'))
+    site = db.Column(db.Integer(), db.ForeignKey('site.id'))
 
     def __repr__(self):
         return '<Machine {}>'.format(self.id)
