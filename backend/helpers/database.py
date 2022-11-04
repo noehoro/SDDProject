@@ -1,6 +1,7 @@
 import json
 from sqlalchemy.ext import mutable
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 
 db = SQLAlchemy()
@@ -15,7 +16,7 @@ class Site(db.Model):
     def __repr__(self):
         return "<Site '{}'>".format(self.name)
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(), unique=True)
     password = db.Column(db.String())

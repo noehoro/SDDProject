@@ -19,7 +19,6 @@ def register():
         response = {'exists':0, 'success': 0} 
         AuthAgent = Auth()
 
-
         username = request.args.get('username')
         
         password = AuthAgent.hash_key(request.args.get('password'))
@@ -44,6 +43,27 @@ def register():
 
         return response
 
+@app.route('/login', methods=['POST'])
+def login():
+
+    if request.method == 'POST':
+        response = {"user": 0, "pass": 0, "loggedin": 0}
+        AuthAgent = Auth()
+        username = request.args.get('username')
+        password = request.args.get('password')
+
+        user = User.query.filter_by(username=username).first()
+
+        if user:
+            if AuthAgent.verify_key(password, user.password):
+                response['loggedin'] = 1
+                return response
+
+        else:
+            return request
+
+
+
 @app.route('/new-machine', methods=['POST'])
 def new_machine():
 
@@ -62,7 +82,7 @@ def new_machine():
 
         return send_file(route, mimetype='image/png')
     else:
-        return 'new_machine'
+        return 'new_machine is a POST only endpoint'
 
 @app.route("/run-machine", methods=['POST'])
 def run_machine():

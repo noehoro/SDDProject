@@ -10,7 +10,7 @@ class Auth:
 	def hash_key(self, string):
 		return self.encryption_object.hash(string)
 
-	def verify(self, hash, string):
-		return self.encryption_object.hash(string) == hash
+	def verify_key(self, hash, string):
+		return self.encryption_object.verify(string, hash)
 
 
