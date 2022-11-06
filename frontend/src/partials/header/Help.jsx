@@ -77,7 +77,7 @@ function Help() {
           <ul>
             <li>
               <a
-                href="https://github.com/guidance-analytics/dataworks"
+                href="#"
                 target="_blank"
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
                 onClick={() => setDropdownOpen(!dropdownOpen)}

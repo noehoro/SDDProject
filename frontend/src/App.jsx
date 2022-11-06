@@ -3,8 +3,6 @@ import { useLocation, Routes, Route } from 'react-router-dom'
 
 import './css/style.css'
 
-import './charts/ChartjsConfig'
-
 import { contextReducer } from './helpers/reducers'
 import { Context } from './helpers/Context'
 
@@ -12,13 +10,12 @@ import { PrivateRoute } from './helpers/Routes'
 
 // Import pages
 import Dashboard from './pages/Dashboard'
+import Machines from './pages/Machines'
 import Login from './pages/Login'
 
 const App = () => {
   const [contextValue, dispatchContextValue] = useReducer(contextReducer, {
-    loggedIn: localStorage.getItem('loggedIn')
-      ? localStorage.getItem('loggedIn')
-      : false,
+    loggedIn: true,
     username: localStorage.getItem('username')
       ? localStorage.getItem('username')
       : '',
@@ -39,6 +36,11 @@ const App = () => {
           exact
           path="/"
           element={<PrivateRoute element={<Dashboard />}></PrivateRoute>}
+        />
+        <Route
+          exact
+          path="/machines"
+          element={<PrivateRoute element={<Machines />}></PrivateRoute>}
         />
         <Route exact path="/login" element={<Login />} />
       </Routes>

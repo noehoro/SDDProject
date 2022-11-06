@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { logOutCall } from '../helpers/apiCalls'
 import { Context } from '../helpers/Context'
 
-import logo from '../images/GA_logo.png'
+import logo from '../images/logo.png'
 
 import SidebarLinkGroup from './SidebarLinkGroup'
 
@@ -206,7 +206,21 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Main
+                                Admin Dashboard
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/machines"
+                              className={({ isActive }) =>
+                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
+                                (isActive ? '!text-indigo-500' : '')
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Machines
                               </span>
                             </NavLink>
                           </li>

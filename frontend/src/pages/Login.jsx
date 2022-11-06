@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import LogoImage from '../images/login_background.png'
+import LogoImage from '../images/login_background.jpg'
 import AuthDecoration from '../images/auth-decoration.png'
-import logo from '../images/GA_logo.png'
+import logo from '../images/logo.png'
 import { logInCall } from '../helpers/apiCalls'
 import { Context } from '../helpers/Context'
 
