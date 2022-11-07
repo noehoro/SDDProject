@@ -7,9 +7,11 @@ from classes.auth import Auth
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
 db.app = app
 db.init_app(app)
-db.create_all()
+with app.app_context():
+    db.create_all()
 app.register_blueprint(qr_code)
 
 @app.route("/register", methods=['POST'])
