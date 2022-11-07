@@ -8,7 +8,7 @@ from classes.auth import Auth
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = 'laundry-manager'
+app.config['SECRET_KEY'] = # put secret key here
 
 
 db.app = app
