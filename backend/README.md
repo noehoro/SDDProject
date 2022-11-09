@@ -15,7 +15,7 @@
  /new-machine | POST | time, site | Creates a new machine. Gives the user back an image of a QR code for that machine | Currently returns an image, however I'm willing to change this to a string specifying the path of the file.
 /run-machine | POST | machine | With the Machine's ID, the function queries the database and returns the time the machine takes. | {machine_time: int}
 /logout | GET | None | Logs out the user, and removes log in boolean from their cookies. NOTE: If the user is not logged in, this endpoint will respond with an error! | {loggedout:1}
-/dashboard | GET | None | Returns all the machine in the current user's site. NOTE: If the user is not logged in, this endpoint will respond with an error!
+/dashboard | GET | None | Returns all the machine in the current user's site. NOTE: If the user is not logged in, this endpoint will respond with an error!| Dict with keys as Machine ID and Value as Machine's time. Example: {31255234: 10, 12332523: 50}
 /getsite | GET | None | Returns the user's site's name | {site: Stirng}
 /createcode | POST, GET | machineid (optional) | Creates or gets a QR code, this endpoint isn't meant to be called by the user unless the user is trying to create a QR code for a machine that already exists. | {address: String pointing to file location of new image} 
 / | GET | None | Default endpoint, returns info on API (used mostly for testing) | {title: Laundry Manager, ver: beta_v1.0}
