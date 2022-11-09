@@ -8,7 +8,7 @@ from classes.auth import Auth
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = # put secret key here
+app.config['SECRET_KEY'] = 'login-manager-admin'
 
 
 db.app = app
@@ -20,6 +20,7 @@ app.register_blueprint(qr_code)
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
+
 @login_manager.user_loader
 def get_user(userid):
     return User.query.get(int(userid))
@@ -78,8 +79,6 @@ def login():
             response['user'] = 1
             return response
 
-
-
 @app.route('/new-machine', methods=['POST'])
 def new_machine():
 
@@ -113,18 +112,33 @@ def logout():
     return {'loggedout': 1}
 
 
+@app.route('/dashboard')
+@login_required
+def dashboard():
+
+    machines = Machine.query.filter_by(site=current_user.site)
+
+    form = {}
+    for i in machines:
+        form[i.id] = i.time
+
+    return form
+
+@app.route('/getsite')
+def getsite():
+
+    return {'site': current_user.site}
+
 @app.route("/")
 def homepage():
 
     # we can through some data return here so that we can display
     # messages on our 
-
     info_out = dict()
     info_out['title'] = 'Laundry Manager'
     info_out['ver']= 'beta_v1.0'
 
-
     return info_out
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
