@@ -24,8 +24,14 @@ body{
 }
 
 #article{
-  min-height: 70vh;
+  min-height: 60vh;
   flex:1;
+  margin-top: 7rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap:10rem;
+
 }
 
 #footer_container{
@@ -106,13 +112,7 @@ body{
     /* color: black; */
 }
 
-#mainContent{
-  margin-top: 7rem;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  gap:10rem;
-}
+
 
 .secLvContainer{
   border-radius: 1rem;
@@ -127,7 +127,7 @@ body{
 
 #statusBarContainer{
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   align-content: flex-start;
   align-items: flex-start;
   margin-top: 3rem;
@@ -144,173 +144,57 @@ body{
   width: 3rem;
   height: 1rem;
 }
-
-#upload{
-    text-align: center;
-}
-
-
-@media (min-width: 768px) {
-  .offset {
-    min-width: 170px;
-  }
-}
-
-#postFit{
-  text-align: center;
-  border: 2px dashed transparent;
-  border-color:"transparent";
-  border-radius: 20px;
-  width: 480px;
-  margin-top: 0px;
-  margin: auto;
-  padding: 20px;
-}
-
-
-
-#file-chosen{
-  margin-top: 0px;
-  position: absolute;
-  margin-left: 0.8rem;
-  /* display: none; */
-}
-
-/* CSS */
-.submit,#upload_label,#demo {
-  background-color: white;
-  border-radius: 0.3rem;
-  margin-top: 20px;
-  /* font-family: "Open Sans", sans-serif; */
-  font-size: 12px;
   
-  letter-spacing: 2px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #000;
-  cursor: pointer;
-  border: 3px solid;
-  padding: 0.25em 0.5em;
-  box-shadow: 1px 1px 0px 0px, 1px 1px 0px 0px, 2px 2px 0px 0px, 2px 2px 0px 0px, 2px 2px 0px 0px;
+/* 
+body {
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  display: flex;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+} */
+
+.chart {
+  background: rgba(255, 255, 255, 0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
   position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  font-weight:bold;
+  padding: 0 5px;
+  display: flex;
+  height: 40px;
+  width: 500px;
 }
+  .chart span {
+      /* You can modify the value below to change the distance between the percentage number and the bar */
+      margin-left: 5px;
+      color: #fff;
+      font-weight: bolder;
+  }
 
-.submit:active,#upload_label:active,#zoom:active,#demo:active {
-  box-shadow: 0px 0px 0px 0px;
-  top: 5px;
-  left: 5px;
-}
+.bar {
+  /* You can modify the total time used for the animation here */
+  animation: load 3s normal forwards;
+  /* 
+  Add a little spice by having a shadow below the bar.
+  Feel free to comment out this line below to have an even LITE version :D 
+  */
+  box-shadow: 0 10px 40px -10px #fff;
 
+  border-radius: 100px;
+  background: #fff;
+  height: 30px;
+  width: 0;
+} 
 
-
-@media (min-width: 768px) {
-  .submit,#upload_label,#demo {
-    padding: 0.25em 0.75em;
+@keyframes load {
+  0% {
+      width: 0;
+  }
+  100% {
+      /* You need to change the percentage below to match the value in the corresponding <span> */
+      width: 98%;
   }
 }
-.button-area span{
-  display:none;
-}
-
-#upload_label,#demo{
-  font-weight: bolder;
-}
-
-#upload_label:hover,#demo:hover{
-  background-color: #d3d0d0;
-}
-
-#demo{
-  /* position: absolute; */
-  margin-top: -1px;
-  margin-left: 20px;
-
-}
-
-#chart_area{
-  margin-top: 35px;
-}
-
-#function_container{
-  margin-top: 50px;
-  text-align: center;
-}
-
-
-
-
-#function_button_area{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
-  grid-gap: 20px;
-  width: 940px;
-  max-width: 100%;
-  margin: auto;
-  margin-top: 50px;
-}
-
-
-.function_button{
-  
-}
-
-.function_button.offset,#zoom{
-  
-  font-family: 'Oswald', sans-serif;
-  background-color: rgb(102, 102, 102);
-  color:white;
-  font-size: medium;
-  border-radius: 10px;
-  padding:20px;
-  height: 10px;
-  border-width: 0;
-  margin-top: 4px;
-  line-height: 0px;
-}
-
-#zoom{
-  margin:auto;
-  display: none;
-  width:100px;
-}
-
-.function_button.offset:hover{
-  transition: opacity .25s;
-  opacity: 80%;
-  cursor: pointer;
-}
-#zoom:hover{
-  transition: opacity .25s;
-  opacity: 80%;
-  cursor: pointer;
-}
-
-
-input[type=text]{
-  font-family: 'Oswald', sans-serif;
-  font-size:medium;
-  padding-left: 50px;
-  width:200px;
-  padding:7px;
-  margin:5px;
-  border-radius:10px;
-  border-width: thin;
-  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
-  margin-right:0px
-}
-
-.ChangeName{
-  /* margin-top: 3px; */
-  width: 200px;
-  margin-left: 15px;
-}
-
-input[value="change"]{
-  display:none;
-}
-
