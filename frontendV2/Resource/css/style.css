@@ -88,6 +88,21 @@ body{
     /* color: black; */
 }
 
+#mainContent{
+  margin-top: 7rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap:10rem;
+}
+
+.secLvContainer{
+  border-radius: 1rem;
+  width: 30vw;
+  height: 40rem;
+  background-color: black;
+}
+
 
 #upload{
     text-align: center;
@@ -258,15 +273,3 @@ input[value="change"]{
   display:none;
 }
 
-.avg_power{
-  text-align: left;
-  width: 200px;
-  margin-left:25px;
-  margin-top:15px;
-}
-
-#myChart{
-  display: none;
-}
-#myChartCadence{
-}

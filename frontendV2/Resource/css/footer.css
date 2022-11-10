@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+
 #footer_container{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Oswald', sans-serif;
+    margin-top: 25rem;
 }
-#footer_container{
-    background: #fcfcfc;
-}
+
 footer{
-    position:absolute;
+    /* position:absolute; */
     left: 0;
     right: 0;
     background: #111;
