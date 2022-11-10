@@ -25,8 +25,8 @@
     
     <div id = "nav">
         <div id = "option">
-            <div id = "" onclick=func() style="cursor: pointer;">TRY DEMO</div>
-            <div id = "about" onclick= func1() style="cursor: pointer;">ABOUT</div>
+            <div id = "" onclick=func() style="cursor: pointer;">MACHINES</div>
+            <div id = "about" onclick= func1() style="cursor: pointer;">LOG IN</div>
             
         </div>
     </div>
@@ -36,38 +36,36 @@
     </div>
 
     
-    <!-- <div id = "upload" class = "drag">
-        <form id = "postFit" >
-                <input id = "upload_file" type="file" multiple = "multiple" name = "file"  accept=".fit" hidden />
-                <label id = "upload_label" for = "upload_file"   > Choose File</label>
-                <span id="file-chosen"  >File Type: fit / Up to 5 Files</span> -->
+    <div id="mainContent">
+        <!-- -----------------------Overall Status Box----------------------------- -->
+        <div class = "secLvContainer" id="statusContainer" >
+            <div class="secLvContainerTitle">
+                Overall Status
+            </div>
 
-                <!-- <button id = "demo" onclick = "try_demo()">TRY DEMO </button> -->
+            <div id="statusBarContainer">
 
-                <!-- <div class="button-area" > 
-                    <input id = "file_submit" type="submit" class = "submit" name = "submit" > 
-                    <span id = "ss",name = "ss" > Uploading... </span>
+                <div class="chart">
+                    <div class="bar"></div>
+                    <!-- Change the value below -->
+                    <span id="value1">78</span>
                 </div>
-        </form>
-    </div> -->
 
-
-    <div id = "chart_area">
-        <canvas id="myChart" width="400" height="130" ></canvas>
-        <!-- <canvas id="myChartCadence" width="400" height="130" ></canvas> -->
-    </div>
-
-    <div id = "avg_power">
-        
-    </div>
-
-    <div id="function_container">
-        <button class="function_button" id ="zoom" role="button" onclick = "reset_zoom()">reset zoom</button>
-        <div id = "function_button_area">
+            </div>
         </div>
+
+        <!-- -----------------------Graphic View Box----------------------------- -->
+        <div class = "secLvContainer" id="washContainer" >
+            <div class="secLvContainerTitle">
+                Graphic view
+            </div>
+
+            <div id="GraphicViewContainer">
+
+            </div>
+        </div>
+         <!-- ---------------------------------------------------- -->
     </div>
-
-
 
     
 

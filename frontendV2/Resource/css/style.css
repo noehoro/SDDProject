@@ -14,6 +14,24 @@ body{
     overflow-x: hidden;
 }
 
+#bbContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+#header_container{
+  min-height: 50px;
+}
+
+#article{
+  min-height: 70vh;
+  flex:1;
+}
+
+#footer_container{
+  min-height: 50px;
+}
+
 #mai_logo_container{
   height: 300px;
   position: absolute;
@@ -109,7 +127,7 @@ body{
 
 #statusBarContainer{
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-content: flex-start;
   align-items: flex-start;
   margin-top: 3rem;
@@ -118,7 +136,9 @@ body{
 
 .statusBarSecContainer{
   display: flex;
+  flex-direction: column;
 }
+
 .statusBar{
   background-color: white;
   width: 3rem;
