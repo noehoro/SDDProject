@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, send_file
 from helpers.database import db, Site, User, Machine, Activity
-from qr_generator import qr_code, create_code
+# from qr_generator import qr_code, create_code
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from datetime import *
 from classes.auth import Auth
@@ -15,7 +15,7 @@ db.app = app
 db.init_app(app)
 with app.app_context():
     db.create_all()
-app.register_blueprint(qr_code)
+# app.register_blueprint(qr_code)
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
