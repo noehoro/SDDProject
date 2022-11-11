@@ -25,3 +25,15 @@ function increase(perc) {
 }
 
 increase([7,78,8]);
+
+
+function func12(){
+    $.ajax({
+        type: "GET",
+        // data: {info: info},
+        url:"http://127.0.0.1:5000/",
+        success:function(msg){
+            console.log(msg);
+        }
+    })
+}
