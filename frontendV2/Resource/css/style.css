@@ -118,19 +118,28 @@ body{
   border-radius: 1rem;
   width: 30vw;
   height: 40rem;
+  
   background-color: black;
+
 }
 
 .secLvContainerTitle, .statusBarTitle{
   color: white
 }
+.secLvContainerTitle{
+  height: 5%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
 
 #statusBarContainer{
   display: flex;
   flex-direction: column;
-  align-content: flex-start;
-  align-items: flex-start;
-  margin-top: 3rem;
+  align-content: center;
+  align-items: center;
+  margin-top: 25%;
   gap: 3rem
 }
 
@@ -145,18 +154,9 @@ body{
   height: 1rem;
 }
   
-/* 
-body {
-  justify-content: center;
-  align-items: center;
-  background: #111;
-  display: flex;
-  height: 100vh;
-  padding: 0;
-  margin: 0;
-} */
-
+/* ------------------------------------------------status bar---------------------------------------------------------- */
 .chart {
+  margin-top: 3%;
   background: rgba(255, 255, 255, 0.1);
   justify-content: flex-start;
   border-radius: 100px;
@@ -165,7 +165,7 @@ body {
   padding: 0 5px;
   display: flex;
   height: 40px;
-  width: 500px;
+  width: 70%;
 }
   .chart span {
       /* You can modify the value below to change the distance between the percentage number and the bar */
@@ -195,6 +195,73 @@ body {
   }
   100% {
       /* You need to change the percentage below to match the value in the corresponding <span> */
-      width: 98%;
+      width: 68%;
   }
 }
+
+.chartText{
+  color: white;
+}
+
+.barContainer{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+/* ---------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* -----------------------------------------------Graphic View---------------------------------------------------------- */
+#GraphicViewContainer{
+  height: 95%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap:6%
+}
+
+.machineSection{
+  /* background-color: white; */
+  width: 90%;
+  height: 20%;
+  z-index: 5;
+}
+
+/* https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element?page=1&tab=scoredesc#tab-top */
+.avaSection img{
+  margin-top: 3%;
+  width: 50px;
+  color: white;
+  filter: invert(99%) sepia(21%) saturate(10%) hue-rotate(172deg) brightness(102%) contrast(100%);
+}
+
+.unavaSection img{
+  width: 50px;
+  color: white;
+  filter: invert(25%) sepia(95%) saturate(5542%) hue-rotate(354deg) brightness(102%) contrast(126%);
+}
+
+.machineContainer{
+  display: flex;
+}
+
+.graphicViewText{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.graphicViewTypeText{
+  color:white;
+}
+/* ---------------------------------------------------------------------------------------------------------- */
