@@ -4,6 +4,8 @@
 *{
     box-sizing: border-box;
     font-family: 'Oswald', sans-serif;
+    
+
 }
 
 body{
@@ -12,6 +14,7 @@ body{
     padding: 0;
     max-width: 100%;
     overflow-x: hidden;
+
 }
 
 #bbContainer{
@@ -128,6 +131,7 @@ body{
 }
 
 .secLvContainerTitle{
+  margin-top: 3%;
   height: 3%;
   display: flex;
   align-content: center;
