@@ -117,7 +117,7 @@ body{
 .secLvContainer{
   border-radius: 1rem;
   width: 30vw;
-  height: 40rem;
+  height: 50rem;
   
   background-color: black;
 
@@ -126,34 +126,16 @@ body{
 .secLvContainerTitle, .statusBarTitle{
   color: white
 }
+
 .secLvContainerTitle{
-  height: 5%;
+  height: 3%;
   display: flex;
   align-content: center;
   align-items: center;
   justify-content: center;
 }
 
-#statusBarContainer{
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  margin-top: 25%;
-  gap: 3rem
-}
 
-.statusBarSecContainer{
-  display: flex;
-  flex-direction: column;
-}
-
-.statusBar{
-  background-color: white;
-  width: 3rem;
-  height: 1rem;
-}
-  
 /* ------------------------------------------------status bar---------------------------------------------------------- */
 .chart {
   margin-top: 3%;
@@ -167,7 +149,7 @@ body{
   height: 40px;
   width: 70%;
 }
-  .chart span {
+  .value1 {
       /* You can modify the value below to change the distance between the percentage number and the bar */
       margin-left: 5px;
       color: #fff;
@@ -195,7 +177,7 @@ body{
   }
   100% {
       /* You need to change the percentage below to match the value in the corresponding <span> */
-      width: 68%;
+      width: var(--m,0%);
   }
 }
 
@@ -204,12 +186,36 @@ body{
 }
 
 .barContainer{
+  height: 20%;
   display: flex;
   width: 100%;
   flex-direction: column;
   align-content: center;
   align-items: center;
+  justify-content: center;
 }
+
+#statusBarContainer{
+  height: 97%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem
+}
+
+.statusBarSecContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.statusBar{
+  background-color: white;
+  width: 3rem;
+  height: 1rem;
+}
+  
 /* ---------------------------------------------------------------------------------------------------------- */
 
 
@@ -226,7 +232,7 @@ body{
   align-content: center;
   align-items: center;
   justify-content: center;
-  gap:6%
+  gap:8%
 }
 
 .machineSection{
@@ -234,18 +240,22 @@ body{
   width: 90%;
   height: 20%;
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
 
 /* https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element?page=1&tab=scoredesc#tab-top */
 .avaSection img{
   margin-top: 3%;
-  width: 50px;
+  width: 40px;
   color: white;
   filter: invert(99%) sepia(21%) saturate(10%) hue-rotate(172deg) brightness(102%) contrast(100%);
 }
 
 .unavaSection img{
-  width: 50px;
+  width: 40px;
   color: white;
   filter: invert(25%) sepia(95%) saturate(5542%) hue-rotate(354deg) brightness(102%) contrast(126%);
 }
@@ -262,6 +272,10 @@ body{
 }
 
 .graphicViewTypeText{
+  width: 100%;
   color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* ---------------------------------------------------------------------------------------------------------- */
