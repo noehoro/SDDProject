@@ -102,7 +102,14 @@
 
             console.log(username);
             console.log(password);
-
+            $.ajax({
+                type: "GET",
+                // data: {info: info},
+                url:"http://127.0.0.1:5000/",
+                success:function(msg){
+                    console.log(msg);
+                }
+            })
         }
     </script>
 
