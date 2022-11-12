@@ -22,7 +22,7 @@ body {
     text-align: center;
     opacity: 0;
     transform: translate3d(0, 500px, 0);
-    animation: arrive 500ms ease-in-out 0.7s forwards;
+    animation: arrive 500ms ease-in-out 0.1s forwards;
 }
 
 .user__title {
@@ -37,7 +37,7 @@ body {
     overflow: hidden;
     opacity: 0;
     transform: translate3d(0, 500px, 0);
-    animation: arrive 500ms ease-in-out 0.9s forwards;
+    animation: arrive 500ms ease-in-out 0.1s forwards;
 }
 
 .form--no {
@@ -114,3 +114,18 @@ body {
     background-color: transparent;
 }
 
+#register{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+}
+.link{
+    color: black;
+    cursor: pointer ;
+    /* text-decoration: none; */
+}
+
+#register:hover{
+    color:#202221;
+}

@@ -12,189 +12,64 @@
     <title>Laundry Management Tool</title>
     <link rel = "stylesheet" href = "Resource/css/style.css">
     <link rel = "stylesheet" href = "Resource/css/footer.css">
+    <link rel = "stylesheet" href = "Resource/css/login.css">
     <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <script type="text/javascript" src="Resource/power_compare_file/demo.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js" integrity="sha512-M72KfQy4kPuLYC6CeTrN0eA17U1lXEMrr5qEJC/40CLdZGC3HpwPS0esQLqBHnxty2FIcuNdP9EqwSOCLEVJXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 <body>
-    <bbContainer>
-
-        <!--------------------------------------------header---------------------------------------------------------------->
-        <div id="header_containter">
+    <div id="bbContainer">
+        <div id="header_container">
             <div id = "header"> Laundry Management Tool</div>
-            
             <div id = "nav">
                 <div id = "option">
                     <div id = "" onclick=func() style="cursor: pointer;">MACHINES</div>
-                    <div id = "about" onclick= func12() style="cursor: pointer;">LOG IN</div>
+                    <div id = "about" onclick= func1() style="cursor: pointer;">LOG IN</div>
                     
                 </div>
             </div>
-
-
             <div id="mai_logo_container">
                 <img src="Resource/imgs/logo.PNG" id="mai_logo" >
             </div>
         </div>
 
-        <!--------------------------------------------body---------------------------------------------------------------->
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <!--ADD YOUR CODE HERE  -->
         <div id="article">
-            <!-- -----------------------Overall Status Box----------------------------- -->
-            <div class = "secLvContainer" id="statusContainer" >
-                <div class="secLvContainerTitle">
-                    Overall Status
-                </div>
-
-                <div id="statusBarContainer">
-
-                    <div class="barContainer">
-                        <span class="chartText">Laundry Machine</span>
-                        
-                        <div class="chart">
-                            <div class="bar"></div>
-                            <!-- Change the value below -->
-                        </div>
-                        <span class="value1"></span>
+            <div class="user">
+                <header class="user__header">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
+                    <h1 class="user__title">Login</h1>
+                </header>
+                
+                <form class="form">
+                    <div class="form__group">
+                        <input type="text" placeholder="Username" class="form__input" id ="username" />
+                    </div>
+                    
+                    <div class="form__group">
+                        <input type="password" placeholder="Password" class="form__input" id ="password" />
                     </div>
 
-                    <div class="barContainer">
-                        <span class="chartText">Dryer</span>
-                        <div class="chart">
-                            <div class="bar"></div>
-                            <!-- Change the value below -->
-                        </div>
-                        <span class="value1"></span>
+
+
+                    
+                    <button class="btn" type="button" onclick = register()>Login</button>
+
+
+                    <div id="register">
+                        <span id = "registerLink">Don't have an account yet? Register for 
+                            <a href="userSignUp.html" class = "link">user</a> or
+                            <a href="mangerSignUp.html" class = "link">manager</a>
+                        </span>
                     </div>
-
-                    <div class="barContainer">
-                        <span class="chartText">Other Machine</span>
-                        <div class="chart">
-                            <div class="bar"></div>
-                            <!-- Change the value below -->
-
-                        </div>
-                        <span class="value1"></span>
-                    </div>
-
-                </div>
+                </form>
             </div>
 
-            <!-- -----------------------Graphic View Box----------------------------- -->
-            <div class = "secLvContainer" id="washContainer" >
-                <div class="secLvContainerTitle">
-                    Graphic view
-                </div>
 
-                <div id="GraphicViewContainer">
-
-                    <div class="machineSection">
-
-                        <div class="graphicViewTypeText">
-                            Laundry Machine
-                        </div>
-
-                        <div class="machineContainer">
-                            <div class="graphicViewText">
-                                available:
-                            </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-
-
-                                
-                            </div>
-                        </div>
-                        <div class="machineContainer">
-                            <div class="graphicViewText">
-                                unavailable:
-                            </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="machineSection">
-
-                        <div class="graphicViewTypeText">
-                            Dryer
-                        </div>
-
-                        <div class="machineContainer">
-                            <div class="graphicViewText">
-                                available:
-                            </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                            </div>
-                        </div>
-                        <div class="machineContainer">
-                            <div class="graphicViewText">
-                                unavailable:
-                            </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="machineSection">
-
-                        <div class="graphicViewTypeText">
-                            Other Machine
-                        </div>
-
-                        <div class="machineContainer">
-                            <div class="graphicViewText">
-                                available:
-                            </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                            </div>
-                        </div>
-                        <div class="machineContainer">
-                            <div class="graphicViewText">
-                                unavailable:
-                            </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <!-- ---------------------------------------------------- -->
         </div>
+        <!-- -------------------------------------------------------------------------------------------------- -->
 
-        <!--------------------------------------------footer---------------------------------------------------------------->
         <div id = "footer_container">
             <footer id = "footer">
                     <div class="footer-content">
@@ -209,9 +84,8 @@
                     </div>
             </footer>
         </div>
-        
-    
-    </bbContainer>
+    </div>
+
     <div id="bg-model">
         <div id ="model-content" class = "PT">
             <h1 class = "PT">Privacy Policy</h1>
@@ -235,22 +109,26 @@
     </div>
 
     <script>
-        function func(){
-            document.getElementById("bg-model").style.display = "flex";
-        }
 
-        var cont = document.getElementById("bg-model");
-        cont.addEventListener("click",function(event){
-            // console.log([...event.target.classList].indexOf('PT'));
-            if([...event.target.classList].indexOf('PT') === -1){
-                document.getElementById("bg-model").style.display = "none";
-            };
-        })
+        // function register(){
+        //     let username = document.getElementById("username").value;
+        //     let password = document.getElementById("password").value;
+
+        //     console.log(username);
+        //     console.log(password);
+        //     $.ajax({
+        //         type: "GET",
+        //         // data: {info: info},
+        //         url:"http://127.0.0.1:5000/",
+        //         success:function(msg){
+        //             console.log(msg);
+        //         }
+        //     })
+        // }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Resource/js/script.js"></script>
+    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
 
 
 

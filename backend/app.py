@@ -33,7 +33,7 @@ def register():
         AuthAgent = Auth()
 
         username = request.args.get('username')
-        
+        print(username)
         password = AuthAgent.hash_key(request.args.get('password'))
         site_post = request.args.get('site')
 

@@ -39,7 +39,7 @@
             <div class="user">
                 <header class="user__header">
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
-                    <h1 class="user__title">Sign up</h1>
+                    <h1 class="user__title">User Sign Up</h1>
                 </header>
                 
                 <form class="form">
@@ -49,6 +49,10 @@
                     
                     <div class="form__group">
                         <input type="password" placeholder="Password" class="form__input" id ="password" />
+                    </div>
+
+                    <div class="form__group">
+                        <input type="text" placeholder="Site Name" class="form__input" id ="username" />
                     </div>
                     
                     <button class="btn" type="button" onclick = register()>Register</button>
@@ -102,10 +106,13 @@
 
             console.log(username);
             console.log(password);
+
+            let info = [username,password,1];
+
             $.ajax({
-                type: "GET",
-                // data: {info: info},
-                url:"http://127.0.0.1:5000/",
+                type: "POST",
+                // data: {username:'yogesh',password: 'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f',site_post: 'site1'},
+                url:"http://127.0.0.1:5000/register?username=abd&password=def&site_post=site",
                 success:function(msg){
                     console.log(msg);
                 }
@@ -113,6 +120,7 @@
         }
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js"></script>
     <script type="text/javascript" src="Resource/js/script.js"></script>
     <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
 
