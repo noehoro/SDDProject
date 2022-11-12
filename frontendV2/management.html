@@ -13,6 +13,7 @@
     <link rel = "stylesheet" href = "Resource/css/style.css">
     <link rel = "stylesheet" href = "Resource/css/login.css">
     <link rel = "stylesheet" href = "Resource/css/footer.css">
+    <link rel = "stylesheet" href = "Resource/css/management.css">
     <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <script type="text/javascript" src="Resource/power_compare_file/demo.js"></script>
@@ -41,7 +42,18 @@
         </div>
 
         <!--------------------------------------------body---------------------------------------------------------------->
+        <div id="createMachineContainer">
+             <span id = "createMachineText" class = "createButton" onclick= show_create_option()>Create Machine</span>
+        </div>
+
+        <div id="createMachineTypeContainer">
+            <div class="createMachineType createButton">Create Laundry Machine</div>
+            <div class="createMachineType createButton">Create Dryer</div>
+            <div class="createMachineType createButton">Create Other Machine</div>
+        </div>
+
         <div id="article">
+
             <!-- -----------------------Overall Status Box----------------------------- -->
             <div class = "secLvContainer" id="statusContainer" >
                 <div class="secLvContainerTitle">
@@ -236,17 +248,13 @@
     </div>
 
     <script>
-        function func(){
-            document.getElementById("bg-model").style.display = "flex";
+        function show_create_option(){
+            document.querySelectorAll(".createMachineType").forEach(div => {
+                let currentDisplay = getComputedStyle(div).getPropertyValue('display');
+                if(currentDisplay == "flex"){div.style.display = "none";}
+                if(currentDisplay == "none"){div.style.display = "flex";}
+            })
         }
-
-        var cont = document.getElementById("bg-model");
-        cont.addEventListener("click",function(event){
-            // console.log([...event.target.classList].indexOf('PT'));
-            if([...event.target.classList].indexOf('PT') === -1){
-                document.getElementById("bg-model").style.display = "none";
-            };
-        })
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
