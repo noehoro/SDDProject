@@ -1,0 +1,285 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+
+*{
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+    
+
+}
+
+body{
+    font-family: 'Oswald', sans-serif;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+
+}
+
+#bbContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+#header_container{
+  min-height: 50px;
+}
+
+#article{
+  min-height: 60vh;
+  flex:1;
+  margin-top: 7rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap:10rem;
+
+}
+
+#footer_container{
+  min-height: 50px;
+}
+
+#mai_logo_container{
+  height: 300px;
+  position: absolute;
+}
+#mai_logo{
+  margin-top: -5.5rem;
+  margin-left: 1rem;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 5;
+}
+
+@media screen and (max-width: 880px){
+  #mai_logo_container{
+    display: none;
+  }
+}
+
+#header{
+    position: static;
+    z-index: 3;
+    display: block;
+    width: 100%;
+    font-size: .8em;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    text-align: center;
+    background: black;
+    color: white;
+}
+
+
+#nav{
+    position: relative;
+    top:0;
+    font-size: .8em;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    padding-bottom: 0px;
+    text-align: center;
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    margin-bottom: 10px;
+
+}
+
+#option{
+    width: 500px;
+    height: 30px;
+    background-color: #000000;
+    border-radius: 13px;
+    color:white;
+}
+
+#option > div{
+    float:left;
+    height: 30px;
+    line-height: 30px;
+    width: calc(100% / 2);  
+    display: block;
+}
+
+#option > div:hover{
+    background-color: rgb(156, 58, 58);
+    border-radius: 13px;
+    color:white;
+    /* transition: all 0.1s ease-in; */
+    /* color: black; */
+}
+
+
+
+.secLvContainer{
+  border-radius: 1rem;
+  width: 30vw;
+  height: 50rem;
+  
+  background-color: black;
+
+}
+
+.secLvContainerTitle, .statusBarTitle{
+  color: white
+}
+
+.secLvContainerTitle{
+  margin-top: 3%;
+  height: 3%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ------------------------------------------------status bar---------------------------------------------------------- */
+.chart {
+  margin-top: 3%;
+  background: rgba(255, 255, 255, 0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  position: relative;
+  padding: 0 5px;
+  display: flex;
+  height: 40px;
+  width: 70%;
+}
+  .value1 {
+      /* You can modify the value below to change the distance between the percentage number and the bar */
+      margin-left: 5px;
+      color: #fff;
+      font-weight: bolder;
+  }
+
+.bar {
+  /* You can modify the total time used for the animation here */
+  animation: load 3s normal forwards;
+  /* 
+  Add a little spice by having a shadow below the bar.
+  Feel free to comment out this line below to have an even LITE version :D 
+  */
+  box-shadow: 0 10px 40px -10px #fff;
+
+  border-radius: 100px;
+  background: #fff;
+  height: 30px;
+  width: 0;
+} 
+
+@keyframes load {
+  0% {
+      width: 0;
+  }
+  100% {
+      /* You need to change the percentage below to match the value in the corresponding <span> */
+      width: var(--m,0%);
+  }
+}
+
+.chartText{
+  color: white;
+}
+
+.barContainer{
+  height: 20%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#statusBarContainer{
+  height: 97%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem
+}
+
+.statusBarSecContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.statusBar{
+  background-color: white;
+  width: 3rem;
+  height: 1rem;
+}
+  
+/* ---------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* -----------------------------------------------Graphic View---------------------------------------------------------- */
+#GraphicViewContainer{
+  height: 95%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  gap:8%
+}
+
+.machineSection{
+  /* background-color: white; */
+  width: 90%;
+  height: 20%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+/* https://stackoverflow.com/questions/22252472/how-to-change-the-color-of-an-svg-element?page=1&tab=scoredesc#tab-top */
+.avaSection img{
+  margin-top: 3%;
+  width: 40px;
+  color: white;
+  filter: invert(99%) sepia(21%) saturate(10%) hue-rotate(172deg) brightness(102%) contrast(100%);
+}
+
+.unavaSection img{
+  width: 40px;
+  color: white;
+  filter: invert(25%) sepia(95%) saturate(5542%) hue-rotate(354deg) brightness(102%) contrast(126%);
+}
+
+.machineContainer{
+  display: flex;
+}
+
+.graphicViewText{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.graphicViewTypeText{
+  width: 100%;
+  color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ---------------------------------------------------------------------------------------------------------- */
