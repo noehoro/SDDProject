@@ -8,7 +8,7 @@ import os
 qr_code = Blueprint('qr_code', __name__)
 
 @qr_code.route('/create-code', methods = ['GET', 'POST'])
-def create_code(is_new=0, code_int=0):
+def create_code(is_new=1, code_int=0):
 
 	QRCode = QR(code_int)
 

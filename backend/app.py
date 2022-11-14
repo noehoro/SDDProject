@@ -99,11 +99,18 @@ def new_machine():
     else:
         return 'new_machine is a POST only endpoint'
 
+
+
 @app.route("/run-machine", methods=['POST'])
 def run_machine():
 
     machine_id = request.args['machine']
-    return str(Machine.query.get(machine_id).time)
+    
+    machine = Machine.query.filter_by(id=machine_id).first()
+    db.session.add(Activity(id=machine.id, time=0, site=machine.site))
+    db.session.commit()
+    return {'machine_time': str(Machine.query.get(machine_id).time)}
+
 
 @app.route("/logout")
 @login_required
@@ -112,11 +119,16 @@ def logout():
     return {'loggedout': 1}
 
 
-@app.route('/dashboard')
-@login_required
+@app.route('/dashboard', methods=['POST'])
 def dashboard():
 
-    machines = Machine.query.filter_by(site=current_user.site)
+    requested_site = request.args['site']
+
+    if not Site.query.filter_by(site=requested_site).first():
+        return 'doesnt exist'
+
+
+    machines = Activity.query.filter_by(site=requested_site)
 
     form = {}
     for i in machines:
@@ -126,8 +138,22 @@ def dashboard():
 
 @app.route('/getsite')
 def getsite():
-
     return {'site': current_user.site}
+
+
+@app.route('/loggedin')
+def check_login():
+
+    response = {'loggedin':0}
+
+    try:
+        a = current_user.username
+        response['loggedin'] = 1
+        return reponse
+
+    except:
+        return response
+
 
 @app.route("/")
 def homepage():
