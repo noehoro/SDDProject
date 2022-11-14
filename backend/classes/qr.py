@@ -22,7 +22,7 @@ class QR:
 		if self.code_image == None:
 			return -1
 
-		self.code_image.save('qr_'+ str(temp_code_num) + '.png')
+		self.code_image.save('qr_'+ str(temp_code_num) + '.svg')
 
 		return 'qr_' + str(temp_code_num)
 
