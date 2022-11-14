@@ -237,7 +237,7 @@
         function get_machines(){
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/dashboard",
+                url:"http://127.0.0.1:5000/dashboard?site=root",
                 // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
                 success:function(msg){
 
@@ -265,6 +265,7 @@
                 success:function(msg){
 
                     console.log(msg);
+                    window.location.assign("../backend/qr_3520.png");
                     // let loggedIn = msg["loggedin"];
                     // let pass = msg["pass"];
                     // let user = msg["user"]
