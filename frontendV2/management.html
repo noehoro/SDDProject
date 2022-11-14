@@ -106,7 +106,33 @@
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
-
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                                <img src="Resource/imgs/LM.svg" class="lm"/>
 
                                 
                             </div>
@@ -140,6 +166,7 @@
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
+                                
                             </div>
                         </div>
                         <div class="machineContainer">
@@ -265,7 +292,7 @@
                 success:function(msg){
 
                     console.log(msg);
-                    window.location.assign("../backend/qr_3520.png");
+                    // window.location.assign("../backend/qr_3520.png");
                     // let loggedIn = msg["loggedin"];
                     // let pass = msg["pass"];
                     // let user = msg["user"]
@@ -277,6 +304,17 @@
                     //     alert("Logged in successfully");
                     //     location.replace("management.html")
                     // }
+                }
+            })
+        }
+
+        function get_site(){
+            $.ajax({
+                type: "GET",
+                url:"http://127.0.0.1:5000/getsite",
+                success:function(msg){
+                    console.log(msg);
+
                 }
             })
         }
