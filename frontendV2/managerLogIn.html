@@ -39,14 +39,17 @@
             <div class="user">
                 <header class="user__header">
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
-                    <h1 class="user__title">Enter Your Location Code</h1>
+                    <h1 class="user__title">Login</h1>
                 </header>
                 
                 <form class="form">
                     <div class="form__group">
-                        <input type="text" placeholder="Location Code" class="form__input" id ="username" />
+                        <input type="text" placeholder="Username" class="form__input" id ="username" />
                     </div>
-    
+                    
+                    <div class="form__group">
+                        <input type="password" placeholder="Password" class="form__input" id ="password" />
+                    </div>
 
 
 
@@ -55,8 +58,9 @@
 
 
                     <div id="register">
-                        <span id = "registerLink">Are you a new manager? Click here to
-                            <a href="managerSignUp.html" class = "link">register</a>
+                        <span id = "registerLink">Don't have an account yet? Register for 
+                            <a href="userSignUp.html" class = "link">user</a> or
+                            <a href="managerSignUp.html" class = "link">manager</a>
                         </span>
                     </div>
                 </form>

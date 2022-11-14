@@ -38,3 +38,7 @@ function func12(){
     })
 }
 
+
+function func1(){
+    location.replace("managerLogin.html")
+}
