@@ -54,7 +54,7 @@
 
 
                     
-                    <button class="btn" type="button" onclick = register()>Login</button>
+                    <button class="btn" type="button" onclick = login()>Login</button>
 
 
                     <div id="register">
@@ -110,21 +110,32 @@
 
     <script>
 
-        // function register(){
-        //     let username = document.getElementById("username").value;
-        //     let password = document.getElementById("password").value;
+        function login(){
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
 
-        //     console.log(username);
-        //     console.log(password);
-        //     $.ajax({
-        //         type: "GET",
-        //         // data: {info: info},
-        //         url:"http://127.0.0.1:5000/",
-        //         success:function(msg){
-        //             console.log(msg);
-        //         }
-        //     })
-        // }
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1:5000/login?username=" + username + "&password=" + password,
+                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
+                success:function(msg){
+
+                    console.log(msg);
+                    let loggedIn = msg["loggedin"];
+                    let pass = msg["pass"];
+                    let user = msg["user"]
+                    
+
+                    if(!loggedIn){
+                        alert("username/password/sitename already exist");
+                    }else{
+                        alert("Logged in successfully");
+                        location.replace("management.html")
+                    }
+                }
+            })
+        }
     </script>
 
     <script type="text/javascript" src="Resource/js/script.js"></script>

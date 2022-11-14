@@ -255,6 +255,52 @@
                 if(currentDisplay == "none"){div.style.display = "flex";}
             })
         }
+
+        function get_machines(){
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1:5000/dashboard",
+                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
+                success:function(msg){
+
+                    console.log(msg);
+                    // let loggedIn = msg["loggedin"];
+                    // let pass = msg["pass"];
+                    // let user = msg["user"]
+                    
+
+                    // if(!loggedIn){
+                    //     alert("username/password/sitename already exist");
+                    // }else{
+                    //     alert("Logged in successfully");
+                    //     location.replace("management.html")
+                    // }
+                }
+            })
+        }
+
+        function new_machine(){
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1:5000/new-machine?time=123&site=root",
+                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
+                success:function(msg){
+
+                    console.log(msg);
+                    // let loggedIn = msg["loggedin"];
+                    // let pass = msg["pass"];
+                    // let user = msg["user"]
+                    
+
+                    // if(!loggedIn){
+                    //     alert("username/password/sitename already exist");
+                    // }else{
+                    //     alert("Logged in successfully");
+                    //     location.replace("management.html")
+                    // }
+                }
+            })
+        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

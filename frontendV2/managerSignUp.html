@@ -104,15 +104,22 @@
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
             let siteName = document.getElementById("siteName").value;
-
+            
             let info = [username,password,1];
 
             $.ajax({
-                type: "GET",
-                // data: {username:'yogesh',password: 'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f',site_post: 'site1'},
-                url:"../backend/app.py/",
+                type: "POST",
+                // data: {username:'yogesh',password: 'FASDF',site_post: 'site1'},
+                url:"http://127.0.0.1:5000/register?username=" + username + "&password=" + password + "&site_post=" + siteName,
                 success:function(msg){
-                    console.log(msg);
+                    let infoExist = msg["exists"];
+                    let notSuccess = msg["success"];
+
+                    if(notSuccess){
+                        alert("username/password/sitename already exist")
+                    }else{
+                        alert("account created successfully")
+                    }
                 }
             })
         }
