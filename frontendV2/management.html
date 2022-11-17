@@ -31,7 +31,7 @@
         </div>
 
         <div id="createMachineTypeContainer">
-            <div class="createMachineType createButton">Create Laundry Machine</div>
+            <div class="createMachineType createButton" onclick=new_machine()>Create Laundry Machine</div>
             <div class="createMachineType createButton">Create Dryer</div>
             <div class="createMachineType createButton">Create Other Machine</div>
         </div>
@@ -47,7 +47,7 @@
                 <div id="statusBarContainer">
 
                     <div class="barContainer">
-                        <span class="chartText">Laundry Machine</span>
+                        <span class="chartText" >Laundry Machine</span>
                         
                         <div class="chart">
                             <div class="bar"></div>
@@ -292,7 +292,7 @@
                 success:function(msg){
 
                     console.log(msg);
-                    // window.location.assign("../backend/qr_3520.png");
+                    // window.location.assign("../backend/qr_1408.svg");
                     // let loggedIn = msg["loggedin"];
                     // let pass = msg["pass"];
                     // let user = msg["user"]
