@@ -71,9 +71,10 @@
                     let notSuccess = msg["success"];
 
                     if(notSuccess){
-                        alert("username/password/sitename already exist")
+                        alert("username/password/sitename already exist");
                     }else{
-                        alert("account created successfully")
+                        alert("account created successfully");
+                        window.location.assign("managerLogin.html");
                     }
                 }
             })
