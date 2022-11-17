@@ -12,26 +12,19 @@ def create_code(is_new=1, code_int=0):
 
 	QRCode = QR(code_int)
 
-	if is_new:
-		code_int = int(str(datetime.now().timestamp()).replace('.',''))
-		print(time)
-		QRCode.create_qr(request.base_url)
+	base = (request.base_url).split('new-machine')[0]
 
-		base = (request.base_url).split('create-code')[0]
+	print(code_int)
+	QRCode.create_qr(base + 'run-machine?machine=')
 
-		QRCode.create_qr(base + 'machine/')
+	routing_code = QRCode.save_qr()
 
-		routing_code = QRCode.save_qr()
+	if routing_code == -1:
+	 	return "ERROR, Please Refresh the Page and Try again"
 
-		if routing_code == -1:
-		 	return "ERROR, Please Refresh the Page and Try again"
-
-		return (routing_code + '.png')
+	return (routing_code + '.svg')
 
 	#grab from database if not new
-
-	else: 
-		return "ERROR: "
 
 
 

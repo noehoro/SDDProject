@@ -3,13 +3,13 @@ from helpers.database import db, Site, User, Machine, Activity
 from qr_generator import qr_code, create_code
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from datetime import *
+import time
 from classes.auth import Auth
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'login-manager-admin'
-
 
 db.app = app
 db.init_app(app)
@@ -80,15 +80,20 @@ def login():
             return response
 
 @app.route('/new-machine', methods=['POST'])
+@login_required
 def new_machine():
 
     if request.method == 'POST':
 
         time = request.args['time']
         site = request.args['site']
+        machine_type = request.args['type']
 
-        machine_id = int(str(datetime.now().timestamp()).replace('.',''))
+        switch = {'wash': '1', 'dry': '2', 'other': '3'}
 
+
+        machine_id = str(switch[machine_type]) + str(datetime.now().timestamp()).replace('.','')
+        
         new_machine = Machine(id=machine_id, time=time, site=site)
         route = create_code(is_new=1, code_int=machine_id)
 
@@ -106,8 +111,11 @@ def run_machine():
 
     machine_id = request.args['machine']
     
+    if Activity.query.filter_by(id=machine_id).first():
+        return {'already_run': 1}
+
     machine = Machine.query.filter_by(id=machine_id).first()
-    db.session.add(Activity(id=machine.id, time=0, site=machine.site))
+    db.session.add(Activity(id=machine.id, time=time.time(), site=machine.site))
     db.session.commit()
     return {'machine_time': str(Machine.query.get(machine_id).time)}
 
@@ -124,15 +132,20 @@ def dashboard():
 
     requested_site = request.args['site']
 
-    if not Site.query.filter_by(site=requested_site).first():
-        return 'doesnt exist'
-
+    if not Site.query.filter_by(name=requested_site).first():
+        return {'site':'null'}
 
     machines = Activity.query.filter_by(site=requested_site)
 
-    form = {}
+    form = {'site': requested_site}
     for i in machines:
-        form[i.id] = i.time
+
+        if int(time.time() - i.time) >= int(i.time):
+            Activity.query.filter_by(id=i.id).delete()
+            db.session.commit()
+        else:    
+            temp_machine = Machine.query.filter_by(id=i.id).first()
+            form[str(i.id)] = str(temp_machine.time + int(i.time - time.time()))
 
     return form
 
