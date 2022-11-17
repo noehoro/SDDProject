@@ -6,6 +6,11 @@ from classes.auth import Auth
 from datetime import *
 import time
 
+
+# The Framework class sets up our Backend Web Framework Flask. Like almost every
+# other Python web framework, flask is meant to be functional, so we have to make
+# added classes like Framework to force it to work in an OO manor. This holds the
+# Flask App framework that is used in App and AppWrapper
 class Framework:
     def __init__(self):
 
@@ -13,15 +18,15 @@ class Framework:
         self.login_manager.login_view = 'login'
         self.app = Flask(__name__)
 
-
+# The App class acts as a Model class. It's function is to implement the functionality
+# of our application. It uses Framework to access our Web Framework and then provides functions
+# that can be called by AppWrapper, the controller, to process data requests
 class App:
 
-    def __init__(self, Frame, host, port, appopt=None, manager=None):
+    def __init__(self, Frame, appopt=None, manager=None):
 
         self.manager = manager
         self.application = appopt
-
-        login_manager = Frame.login_manager
 
         self.app = Frame.app
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -35,12 +40,11 @@ class App:
         with self.app.app_context():
             self.db.create_all()
 
-        login_manager.init_app(self.app)
 
-        self.host = host
-        self.port = port
 
-    def register(self, passwrd):
+        Frame.login_manager.init_app(self.app)
+
+    def register(self, username, passwrd, site_post):
 
         response = {'exists':0, 'success': 0} 
         AuthAgent = Auth()
@@ -65,21 +69,21 @@ class App:
 
         return response
 
-    def login(self, username, password):
+    def login(self, username, passwrd):
 
-        
         response = {"user": 0, "pass": 0, "loggedin": 0}
         AuthAgent = Auth()
         user = User.query.filter_by(username=username).first()
+
         if user:
-            if AuthAgent.verify_key(user.password, password):
+            if AuthAgent.verify_key(user.password, passwrd):
+                print()
                 response['loggedin'] = 1
                 login_user(user, remember=True)
                 return response
             else:
                 response['pass'] = 1
                 return response  
-
         else:
             response['user'] = 1
             return response
@@ -170,83 +174,88 @@ class App:
 
         return info_out
 
-    def start(self):
-        self.app.run(host=self.host, port=self.port)
 
-
+# Class AppWrapper acts as a controller class as it implements our routing system. It has
+# two major components: routes, which is the controller implementation, implementing all flask
+# framework endpoints and routing them to the proper App function that implements the requested
+# functionality. NOTE: @app.route's are not nested functions! They are overrided to be used as 
+# endpoints! Think of them as a variable that just redirects a web request! Without endpoints,
+# we can't build an API. routes() has one more function, which is start. All this does is 
 class AppWrapper:
 
     def __init__(self, start=0):
-        self.server = self.routes(start)
+
+        self.flask_framework = Framework()
+        self.app = self.flask_framework.app
+        self.login_manager = self.flask_framework.login_manager
+        self.app_router = App(self.flask_framework, '0.0.0.0', '5000')
 
     def routes(self, start):
 
-        flask_framework = Framework()
-        app = flask_framework.app
-        login_manager = flask_framework.login_manager
-
-        self.app_router = App(flask_framework, '0.0.0.0', '5000')
-
-        @app.route('/')
+        @self.app.route('/') # Functional
         def homepage():
             return self.app_router.homepage()
 
-        @app.route('/loggedin')
+        @self.app.route('/loggedin') # Functional
         def check_login():
             return self.app_router.check_login()
 
-        @app.route('/getsite')
+        @self.app.route('/getsite') # Functional
         @login_required
         def getsite():
             return self.app_router.getsite()
 
-        @app.route('/dashboard', methods=['POST'])
+        @self.app.route('/dashboard', methods=['POST']) # Functional -> bug, can be negative
         def dashboard():
             if request.method == "POST":
                 return self.app_router.dashboard(request.args['site'])
 
-        @app.route("/logout")
+        @self.app.route("/logout") # Functional
         @login_required
         def logout():
             return self.app_router.logout()
 
-        @app.route("/run-machine", methods=['POST'])
+        @self.app.route("/run-machine", methods=['POST']) # Functional
         def run_machine():
             if request.method == "POST":
                 return self.app_router.run_machine(request.args['machine'])
 
-        @app.route('/new-machine', methods=['POST'])
+        @self.app.route('/new-machine', methods=['POST']) # Functional
         @login_required
         def new_machine():
 
             if request.method == "POST":
                 return self.app_router.new_machine(request.args['time'], request.args['site'], request.args['type'])
 
-        @app.route('/login', methods=['POST'])
+        @self.app.route('/login', methods=['POST']) # Functional
         def login():
             if request.method == "POST":
                 username = request.args.get('username')
                 password = request.args.get('password')
                 return self.app_router.login(username, password)
 
-        @app.route("/register", methods=['POST'])
+        @self.app.route("/register", methods=['POST']) # Functional
         def register():
 
             if request.method == "POST":
-
+                AuthAgent = Auth()
                 username = request.args.get('username')
-                password = AuthAgent.hash_key(request.args.get('password'))
+                password = request.args.get('password')
                 site_post = request.args.get('site')
                 return self.app_router.register(username, password, site_post)
 
-        @login_manager.user_loader
+        @self.login_manager.user_loader
         def get_user(userid):
             return User.query.get(int(userid))
 
         if start:
-            app.run()
+            self.app.run()
     
+
+    def start(self):
+        self.routes(True)
 
 
 if __name__ == "__main__":
     application = AppWrapper(start=True)
+    application.start()

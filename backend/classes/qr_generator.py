@@ -1,10 +1,9 @@
 import qrcode
 import webbrowser
-from qr import QR
+from classes.qr import QR
 from flask import request
 from datetime import *
 import os
-
 
 class QRBlueprint(object):
 
