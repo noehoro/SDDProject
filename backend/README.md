@@ -20,4 +20,6 @@
 /createcode | POST, GET | machineid (optional) | Creates or gets a QR code, this endpoint isn't meant to be called by the user unless the user is trying to create a QR code for a machine that already exists. | {address: String pointing to file location of new image} 
 / | GET | None | Default endpoint, returns info on API (used mostly for testing) | {title: Laundry Manager, ver: beta_v1.0}
 /loggedin | GET | None | Checks if a user is logged in or not | {loggedin: 1 if logged in, 0 if not}
+
+
 And more to come! I'm dilligently working on ironing out any issues with these endpoints, as well as implementing the SMS endpoints!
