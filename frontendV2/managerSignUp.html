@@ -19,19 +19,7 @@
 </head>
 <body>
     <div id="bbContainer">
-        <div id="header_container">
-            <div id = "header"> Laundry Management Tool</div>
-            <div id = "nav">
-                <div id = "option">
-                    <div id = "" onclick=func() style="cursor: pointer;">MACHINES</div>
-                    <div id = "about" onclick= func1() style="cursor: pointer;"> LOG IN</div>
-                    
-                </div>
-            </div>
-            <div id="mai_logo_container">
-                <img src="Resource/imgs/logo.PNG" id="mai_logo" >
-            </div>
-        </div>
+        <div id="header_container"></div>
 
         <!-- -------------------------------------------------------------------------------------------------- -->
         <!--ADD YOUR CODE HERE  -->
@@ -61,66 +49,41 @@
         </div>
         <!-- -------------------------------------------------------------------------------------------------- -->
 
-        <div id = "footer_container">
-            <footer id = "footer">
-                    <div class="footer-content">
-                        <h3>Laundry Management Tool</h3>
-                        <div id ="term" onclick = "func()">Terms and Privacy</div>
-                        <ul class="socials">
-                            <li><a href="https://github.com/noehoro/SDDProject"><i class="fa fa-github"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-bottom">
-                        <p>copyright &copy;2022. designed by <span>Laundry master</span></p>
-                    </div>
-            </footer>
-        </div>
+        <div id = "footer_container"></div>
     </div>
 
-    <div id="bg-model">
-        <div id ="model-content" class = "PT">
-            <h1 class = "PT">Privacy Policy</h1>
-                <h2 class = "PT">Personal Data Collection</h2>
-                    <h4 class = "PT">The site does not read or collect file content, metadata, or other data from your uploaded files.</h4>
-                <h2 class = "PT">Use of Your Personal Data</h2>
-                    <h4 class = "PT">The site does not collect any personal data.</h4>
-                <h2 class = "PT">Handling of Your Files</h2>
-                    <h4 class = "PT">The files will exist momentarily in the server to retrieve the power information. As soon as that is finished, all files will be <b>DELETED</b>.</h4>
-                <h2 class = "PT">Cookies</h2>
-                    <h4 class = "PT">The site does not collect any cookie</h4>
-            
-            <h1 class = "PT">Term of Service</h1>
-                <h2 class = "PT">Allowed Usage</h2>
-                    <h4 class = "PT">This service offers functionality to analyze power data from multiple .fit files. This service is provided through web interface. You agree to comply with the policies and limitations concerning the use of the Mai's Power Meter Comparison Tool. </h4>
-                    <h4 class = "PT">You agree to not reverse-compile or decompile, analyze, reverse-engineer, reverse-assemble or disassemble, unlock or otherwise attempt to discover the source code 
-                        or underlying algorithms of Mai's Power Meter Comparison Tool or attempt to do any of the foregoing in relation to the Mai's Power Meter Comparison Tool service.</h4>
-                <h2 class = "PT">Copyright Policy</h2>
-                    <h4 class = "PT">You are responsible only for the data (e.g., files, URLs) that you send to the Mai's Power Meter Comparison Tool service. Mai's Power Meter Comparison Tool does not monitor customer content. Please remember that illicit exchanges of recordings and protected works and hacking harm artistic creation. And please respect the laws in force, especially those concerning intellectual and artistic property.</h4>
-        </div>
-    </div>
+    <div id="bg-model"></div>
 
     <script>
         function register(){
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
             let siteName = document.getElementById("siteName").value;
-
+            
             let info = [username,password,1];
 
             $.ajax({
-                type: "GET",
-                // data: {username:'yogesh',password: 'ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f',site_post: 'site1'},
-                url:"../backend/app.py/",
+                type: "POST",
+                // data: {username:'yogesh',password: 'FASDF',site_post: 'site1'},
+                url:"http://127.0.0.1:5000/register?username=" + username + "&password=" + password + "&site_post=" + siteName,
                 success:function(msg){
-                    console.log(msg);
+                    let infoExist = msg["exists"];
+                    let notSuccess = msg["success"];
+
+                    if(notSuccess){
+                        alert("username/password/sitename already exist");
+                    }else{
+                        alert("account created successfully");
+                        window.location.assign("managerLogin.html");
+                    }
                 }
             })
         }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/2.0.2/sha.js"></script>
-    <script type="text/javascript" src="Resource/js/script.js"></script>
     <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="Resource/js/script.js"></script>
+
 
 
 
