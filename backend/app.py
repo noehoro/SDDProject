@@ -6,14 +6,12 @@ from classes.auth import Auth
 from datetime import *
 import time
 
-
 # The Framework class sets up our Backend Web Framework Flask. Like almost every
 # other Python web framework, flask is meant to be functional, so we have to make
 # added classes like Framework to force it to work in an OO manor. This holds the
 # Flask App framework that is used in App and AppWrapper
 class Framework:
     def __init__(self):
-
         self.login_manager = LoginManager()
         self.login_manager.login_view = 'login'
         self.app = Flask(__name__)
@@ -28,6 +26,8 @@ class App:
         self.manager = manager
         self.application = appopt
 
+        self.login_session = {}
+
         self.app = Frame.app
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -39,8 +39,6 @@ class App:
 
         with self.app.app_context():
             self.db.create_all()
-
-
 
         Frame.login_manager.init_app(self.app)
 
@@ -77,9 +75,11 @@ class App:
 
         if user:
             if AuthAgent.verify_key(user.password, passwrd):
-                print()
+                
                 response['loggedin'] = 1
-                login_user(user, remember=True)
+                login_user(user)
+                self.login_session['username'] = user.username
+                self.login_session['site'] = user.site
                 return response
             else:
                 response['pass'] = 1
@@ -121,8 +121,9 @@ class App:
 
     def logout(self):
         logout_user()
+        del self.login_session['site']
+        del self.login_session['username']
         return {'loggedout': 1}
-
 
     def dashboard(self, arg_site):
 
@@ -150,16 +151,16 @@ class App:
         return form
 
     def getsite(self):
-        return {'site': current_user.site}
+        return {'site': User.query.filter_by(username=self.login_session['username']).first().site}
 
     def check_login(self):
 
         response = {'loggedin':0}
 
         try:
-            a = current_user.username
-            response['loggedin'] = 1
-            return reponse
+            if self.login_session['username']:
+                response['loggedin'] = 1
+            return response
 
         except:
             return response
@@ -201,7 +202,6 @@ class AppWrapper:
             return self.app_router.check_login()
 
         @self.app.route('/getsite') # Functional
-        @login_required
         def getsite():
             return self.app_router.getsite()
 
@@ -211,9 +211,11 @@ class AppWrapper:
                 return self.app_router.dashboard(request.args['site'])
 
         @self.app.route("/logout") # Functional
-        @login_required
         def logout():
-            return self.app_router.logout()
+            try:
+                return self.app_router.logout()
+            except:
+                return 'not logged in'
 
         @self.app.route("/run-machine", methods=['POST']) # Functional
         def run_machine():
@@ -221,11 +223,13 @@ class AppWrapper:
                 return self.app_router.run_machine(request.args['machine'])
 
         @self.app.route('/new-machine', methods=['POST']) # Functional
-        @login_required
         def new_machine():
 
             if request.method == "POST":
-                return self.app_router.new_machine(request.args['time'], request.args['site'], request.args['type'])
+                try:
+                    return self.app_router.new_machine(request.args['time'], request.args['site'], request.args['type'])
+                except:
+                    return 'not logged in'
 
         @self.app.route('/login', methods=['POST']) # Functional
         def login():
@@ -245,8 +249,9 @@ class AppWrapper:
                 return self.app_router.register(username, password, site_post)
 
         @self.login_manager.user_loader
-        def get_user(userid):
-            return User.query.get(int(userid))
+        def load_user(user_id):
+            print("USER ID", user_id)
+            return User.query.get(int(user_id))
 
         if start:
             self.app.run()
