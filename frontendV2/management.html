@@ -281,11 +281,11 @@
                         let machineType = String(machineId)[0]; //if the first digit is a 1, it is a washer, if it is a 2, it is a drier, if it is a 3
                         
                         if(machineType == "1" && status == 0){washStatus.push(0)};
-                        if(machineType == "1" && status == 1){washStatus.push(1)};
+                        if(machineType == "1" && status != 0){washStatus.push(1)};
                         if(machineType == "2" && status == 0){dryStatus.push(0)};
-                        if(machineType == "2" && status == 1){dryStatus.push(1)};
+                        if(machineType == "2" && status != 0){dryStatus.push(1)};
                         if(machineType == "3" && status == 0){otherStatus.push(0)};
-                        if(machineType == "3" && status == 1){otherStatus.push(1)};
+                        if(machineType == "3" && status != 0){otherStatus.push(1)};
 
                         addmachineToHtml(machineType,status);
                     }
