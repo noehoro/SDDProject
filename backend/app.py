@@ -119,7 +119,9 @@ class App:
     def new_machine(self, time, site, machine_type):
 
         if request.method == 'POST':
-
+            print(time)
+            print(site)
+            print(machine_type)
             # Switch case for washer drier or other argument
             switch = {'wash': '1', 'dry': '2', 'other': '3'}
 
@@ -140,6 +142,7 @@ class App:
             # Return the client the QR code
             return route
 
+            
         else:
             return 'new_machine is a POST only endpoint'
 

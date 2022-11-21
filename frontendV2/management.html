@@ -231,7 +231,6 @@
                 url:"http://127.0.0.1:5000/getsite",
                 success:function(msg){
                     var site = msg["site"]; 
-                    console.log(ele);
                     new_machine(site,ele)
                 }
             })
@@ -265,11 +264,10 @@
 
         // ---------------------------------------------------------------------------------------------
         function new_machine(site,ele){
-            console.log(ele)
-            console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele);
+            console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id);
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele,
+                url:"http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id,
                 success:function(msg){
                     console.log(msg);
                 }
