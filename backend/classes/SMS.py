@@ -1,6 +1,8 @@
 from twilio.rest import Client
+from twilio.http.http_client import TwilioHttpClient
 from time import sleep
 import sys
+import os
 
 '''
 Class SMS uses Twilio, an online web API to help implement SMS. Twilio is a paid service, so currently 
@@ -13,7 +15,6 @@ end of the pipe. SMS simply handles user notifications.
 class SMS:
 
 	def __init__(self, number):
-		
 		# Setup twilio to be used by class, specify number to be used as sender
 		self.client = Client('ACd6f8fa3555f40caef53a35bb1d9e3799', 'a669bab27a47bcf3f736c88a3b3b0ab2')
 		self.number = number
@@ -22,11 +23,10 @@ class SMS:
 	def send_start(self, to_number):
 
 		# Try to send a message to the client's number, on success, return true. On error, return false
-		try:
-			self.client.messages.create(to=to_number, from_=self.number, body="Your Laundry Machine has been started successfully! We will text you when it is complete!")
-			return True
-		except: 
-			return False
+		print(to_number)
+		self.client.messages.create(to=to_number, from_=self.number, body="Your Laundry Machine has been started successfully! We will text you when it is complete!")
+		return True
+
 
 	# send_complete sends the completion message to the user, signaling a machine finish
 	def send_complete(self, to_number):
