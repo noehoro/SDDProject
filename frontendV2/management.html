@@ -16,7 +16,6 @@
     <link rel = "stylesheet" href = "Resource/css/management.css">
     <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <script type="text/javascript" src="Resource/power_compare_file/demo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js" integrity="sha512-M72KfQy4kPuLYC6CeTrN0eA17U1lXEMrr5qEJC/40CLdZGC3HpwPS0esQLqBHnxty2FIcuNdP9EqwSOCLEVJXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
@@ -31,9 +30,9 @@
         </div>
 
         <div id="createMachineTypeContainer">
-            <div class="createMachineType createButton" id = "wash" onclick = new_machine(this)>Create Laundry Machine</div>
-            <div class="createMachineType createButton" id = "dry" onclick = new_machine(this)>Create Dryer</div>
-            <div class="createMachineType createButton" id = "other" onclick = new_machine(this)>Create Other Machine</div>
+            <div class="createMachineType createButton" id = "wash" onclick = new_machine_helper(this)>Create Laundry Machine</div>
+            <div class="createMachineType createButton" id = "dry" onclick = new_machine_helper(this)>Create Dryer</div>
+            <div class="createMachineType createButton" id = "other" onclick = new_machine_helper(this)>Create Other Machine</div>
         </div>
 
         <div id="article">
@@ -172,9 +171,9 @@
         
     </div>
     <div id="bg-model"></div>
-
+    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script>
-
+        
         // ---------------------------------------------------------------------------------------------
         // Animation for status bar
         function increase(perc) {
@@ -226,21 +225,37 @@
         }
     
         // ---------------------------------------------------------------------------------------------
-        function get_site(){
+        function new_machine_helper(ele){
             $.ajax({
                 type: "GET",
                 url:"http://127.0.0.1:5000/getsite",
-                success:function(asdf){
-                    console.log(asdf);
+                success:function(msg){
+                    var site = msg["site"]; 
+                    new_machine(site,ele)
                 }
             })
         }
 
         // ---------------------------------------------------------------------------------------------
-        function get_machines(){
+        function get_machine_helper(){
+            $.ajax({
+                type: "GET",
+                url:"http://127.0.0.1:5000/getsite",
+                success:function(msg){
+                    var site = msg["site"]; 
+                    get_machines(site);
+                }
+            })
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        function get_machines(site){
+
+            let url = "http://127.0.0.1:5000/dashboard?site=" + site;
+            console.log(url);
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/dashboard?site=root0",
+                url:"http://127.0.0.1:5000/dashboard?site=" + site,
                 success:function(msg){
                     console.log(msg);
                 }
@@ -248,35 +263,19 @@
         }
 
         // ---------------------------------------------------------------------------------------------
-        function new_machine(ele){
+        function new_machine(site,ele){
+            console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id);
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=60&site=root0&type=" + ele.id,
-                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
+                url:"http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id,
                 success:function(msg){
-
                     console.log(msg);
-                    // window.location.assign("../backend/qr_1408.svg");
-                    // let loggedIn = msg["loggedin"];
-                    // let pass = msg["pass"];
-                    // let user = msg["user"]
-                    
-
-                    // if(!loggedIn){
-                    //     alert("username/password/sitename already exist");
-                    // }else{
-                    //     alert("Logged in successfully");
-                    //     location.replace("management.html")
-                    // }
                 }
             })
         }
-
 
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Resource/js/script.js"></script>
 
 
