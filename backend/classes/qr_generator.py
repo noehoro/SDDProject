@@ -15,9 +15,10 @@ class QRBlueprint(object):
 
 	def create_code(self):
 
-		self.base = (request.base_url).split('new-machine')[0]
+		#self.base = (request.base_url).split('new-machine')[0]
+		self.base = '127.0.0.1:5500/'
 
-		self.QRCode.create_qr(self.base + 'run-machine?machine=')
+		self.QRCode.create_qr(self.base + 'Run-Machine.html?machine=')
 
 		self.routing_code = self.QRCode.save_qr()
 

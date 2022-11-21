@@ -4,6 +4,7 @@ from classes.qr_generator import QRBlueprint
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from classes.auth import Auth
 from datetime import *
+import subprocess
 import time
 
 # The Framework class sets up our Backend Web Framework Flask. Like almost every
@@ -96,7 +97,7 @@ class App:
 
             machine_id = str(switch[machine_type]) + str(datetime.now().timestamp()).replace('.','')
             
-            new_machine = Machine(id=machine_id, time=time, site=site)
+            new_machine = Machine(id=machine_id, time=time, site=site, broken=0)
 
             QRCreator = QRBlueprint(is_new=1, code_int=machine_id)
             route = QRCreator.create_code()
@@ -104,19 +105,25 @@ class App:
             self.db.session.add(new_machine)
             self.db.session.commit()
 
-            return send_file(route, mimetype='image/png')
+            return route
 
         else:
             return 'new_machine is a POST only endpoint'
 
-    def run_machine(self, machine_id):
+    def run_machine(self, machine_id, number):
         
         if Activity.query.filter_by(id=machine_id).first():
+
             return {'already_run': 1}
 
         machine = Machine.query.filter_by(id=machine_id).first()
         self.db.session.add(Activity(id=machine.id, time=time.time(), site=machine.site))
         self.db.session.commit()
+
+        # commented out so i dont get a fat bill. uncomment before demo
+
+        # subprocess.Popen(['python3', 'classes/SMS.py', number, str(machine.time)], \
+        #     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         return {'machine_time': str(Machine.query.get(machine_id).time)}
 
     def logout(self):
@@ -137,15 +144,28 @@ class App:
         form = {'site': requested_site}
         for i in machines:
 
+            if i.broken:
+                form[str(i.id)] = -1
+                continue
+
+
             j = Activity.query.filter_by(id=i.id).first()
 
             if j:
-                if int(time.time() - j.time) >= int(j.time):
-                    Activity.query.filter_by(id=j.id).delete()
+                if int(time.time() - j.time) >= int(j.time) or int(time.time() - j.time) < 0:
+                    act = Activity.query.get(j.id)
+                    self.db.session.delete(act)
                     self.db.session.commit()
+                    form[str(j.id)] = 0
                 else:    
                     temp_machine = Machine.query.filter_by(id=j.id).first()
                     form[str(j.id)] = str(temp_machine.time + int(j.time - time.time()))
+                    if int(form[str(j.id)]) < 0:
+                        act = Activity.query.get(j.id)
+                        self.db.session.delete(act)
+                        self.db.session.commit()
+                        form[str(j.id)] = 0
+
             else:
                 form[str(i.id)] = 0
         return form
@@ -165,6 +185,30 @@ class App:
         except:
             return response
 
+    def report_machine(self, machineid):
+
+        machine = Machine.query.filter_by(id=machineid).first()
+        new_machine = Machine(id=machineid, time=machine.time, site=machine.site, broken=1)
+        delete = Machine.query.get(machineid)
+        db.session.delete(delete)
+        db.session.commit()
+        db.session.add(new_machine)
+        db.session.commit()
+
+        return {'success':1}
+
+    def fix_machine(self, machineid):
+
+        machine = Machine.query.filter_by(id=machineid).first()
+        new_machine = Machine(id=machineid, time=machine.time, site=machine.site, broken=0)
+        delete = Machine.query.get(machineid)
+        db.session.delete(delete)
+        db.session.commit()
+        db.session.add(new_machine)
+        db.session.commit()
+
+        return {'success':1}
+
     def homepage(self):
 
         # we can through some data return here so that we can display
@@ -174,6 +218,33 @@ class App:
         info_out['ver']= 'beta_v1.0'
 
         return info_out
+
+    def change_username(self, username):
+
+        try:
+            old_user = User.query.filter_by(username=self.login_session['username']).first()
+            login_session['username'] = username
+            new_user = User(username=username, password=old_user.password, site=old_user.site)
+            db.session.delete(old_user)
+            db.session.commit()
+            db.session.add(new_user)
+            db.session.commit()
+            return {'success':1}
+
+        except:
+            return {'success':0}
+
+    def change_password(self, new_password):
+        AuthAgent = Auth()
+        new_password = AuthAgent.hash_key(new_password)
+        old_user = User.query.filter_by(username=self.login_session['username']).first()
+        new_user = User(username=self.login_session['username'], password=new_password, site=old_user.site)
+        db.session.delete(old_user)
+        db.session.commit()
+        db.session.add(new_user)
+        db.session.commit()
+
+        return {'success':1}
 
 
 # Class AppWrapper acts as a controller class as it implements our routing system. It has
@@ -220,7 +291,8 @@ class AppWrapper:
         @self.app.route("/run-machine", methods=['POST']) # Functional
         def run_machine():
             if request.method == "POST":
-                return self.app_router.run_machine(request.args['machine'])
+                return self.app_router.run_machine(request.args['machine'], request.args['number'])
+
 
         @self.app.route('/new-machine', methods=['POST']) # Functional
         def new_machine():
@@ -252,6 +324,22 @@ class AppWrapper:
         def load_user(user_id):
             print("USER ID", user_id)
             return User.query.get(int(user_id))
+
+        @self.app.route('/report', methods=['POST'])
+        def report():
+            return self.app_router.report_machine(request.args['machine'])
+
+        @self.app.route('/fixed', methods=['POST'])
+        def fixed():
+            return self.app_router.fix_machine(request.args['machine'])
+
+        @self.app.route('/changeusername', methods=['POST'])
+        def changeuser():
+            return self.app_router.change_username(request.args['newname'])
+
+        @self.app.route('/changepassword', methods=['POST'])
+        def changepass():
+            return self.app_router.change_password(request.args['newpass'])
 
         if start:
             self.app.run()

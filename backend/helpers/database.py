@@ -26,6 +26,7 @@ class Machine(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     time = db.Column(db.Integer())
     site = db.Column(db.Integer(), db.ForeignKey('site.id'))
+    broken = db.Column(db.Integer())
 
     def __repr__(self):
         return '<Machine {}>'.format(self.id)
