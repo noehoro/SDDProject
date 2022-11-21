@@ -16,3 +16,4 @@ SQLAlchemy==1.4.43
 toml==0.10.2
 Werkzeug==2.2.2
 zipp==3.8.1
+twilio==7.15.3
