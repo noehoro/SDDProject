@@ -99,6 +99,8 @@ class App:
                 #Login user, add them to the login_session, and return response to client (success code)
                 response['loggedin'] = 1
                 login_user(user)
+                print(user.username)
+                print(user.site)
                 self.login_session['username'] = user.username
                 self.login_session['site'] = user.site
                 return response
@@ -412,7 +414,8 @@ class AppWrapper:
                 AuthAgent = Auth()
                 username = request.args.get('username')
                 password = request.args.get('password')
-                site_post = request.args.get('site')
+                site_post = request.args.get('site_post')
+                print(site_post)
                 return self.app_router.register(username, password, site_post)
 
         # Load User (Route for login manager, inaccessable to user)
