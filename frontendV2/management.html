@@ -226,7 +226,7 @@
 
     <script>
 
-    function increase(perc) {
+        function increase(perc) {
             //change status bar fill percentage
             let bars = document.getElementsByClassName("bar");
             for(let i = 0; i < bars.length; i++){
@@ -270,13 +270,14 @@
                 }
             })
         }
+    
 
         function get_site(){
             $.ajax({
                 type: "GET",
                 url:"http://127.0.0.1:5000/getsite",
-                success:function(msg){
-                    console.log(msg);
+                success:function(asdf){
+                    console.log(asdf);
                 }
             })
         }
@@ -314,6 +315,17 @@
                 }
             })
         }
+
+        function logout() { 
+            $.ajax({
+                type: "GET",
+                url: "https://127.0.0.1:5000/logout",
+                success:function(msg){
+                    console.log(msg)
+                }
+            })
+        }
+
 
     </script>
 

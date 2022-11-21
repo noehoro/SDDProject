@@ -68,6 +68,7 @@
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
             
+            console.log(username)
 
             $.ajax({
                 type: "POST",
@@ -78,7 +79,7 @@
                     console.log(msg);
                     let loggedIn = msg["loggedin"];
                     let pass = msg["pass"];
-                    let user = msg["user"]
+                    let user = msg["user"];
                     
 
                     if(!loggedIn){
