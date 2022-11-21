@@ -310,7 +310,7 @@
                 type: "POST",
                 url:"http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id,
                 success:function(msg){
-                    console.log(msg);
+                    location.replace("../backend/" + msg);
                 }
             })
         }
