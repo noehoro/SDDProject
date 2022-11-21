@@ -13,7 +13,10 @@
     <link rel = "stylesheet" href = "Resource/css/style.css">
     <link rel = "stylesheet" href = "Resource/css/login.css">
     <link rel = "stylesheet" href = "Resource/css/footer.css">
+    <link rel = "stylesheet" href = "Resource/css/management.css">
     <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js" integrity="sha512-M72KfQy4kPuLYC6CeTrN0eA17U1lXEMrr5qEJC/40CLdZGC3HpwPS0esQLqBHnxty2FIcuNdP9EqwSOCLEVJXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 <body>
@@ -22,7 +25,9 @@
         <div id="header_container"></div>
 
         <!--------------------------------------------body---------------------------------------------------------------->
+
         <div id="article">
+
             <!-- -----------------------Overall Status Box----------------------------- -->
             <div class = "secLvContainer" id="statusContainer" >
                 <div class="secLvContainerTitle">
@@ -32,7 +37,7 @@
                 <div id="statusBarContainer">
 
                     <div class="barContainer">
-                        <span class="chartText">Laundry Machine</span>
+                        <span class="chartText" >Laundry Machine</span>
                         
                         <div class="chart">
                             <div class="bar"></div>
@@ -72,7 +77,6 @@
                 <div id="GraphicViewContainer">
 
                     <div class="machineSection">
-
                         <div class="graphicViewTypeText">
                             Laundry Machine
                         </div>
@@ -81,29 +85,16 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "washAvaSec">
 
-
-                                
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "washUnAvaSec">
+
                             </div>
                         </div>
                     </div>
@@ -118,23 +109,17 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "dryAvaSec">
+
+                                
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "dryUnAvaSec">
+
                             </div>
                         </div>
                     </div>
@@ -149,23 +134,15 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "otherAvaSec">
+
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "otherUnAvaSec">
                             </div>
                         </div>
                     </div>
@@ -181,9 +158,11 @@
         
     </div>
     <div id="bg-model"></div>
-
+    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script>
-
+        
+        // ---------------------------------------------------------------------------------------------
+        // Animation for status bar
         function increase(perc) {
             //change status bar fill percentage
             let bars = document.getElementsByClassName("bar");
@@ -210,26 +189,81 @@
             }
         }
 
-        increase([7,78,8]);
-
-
-        function func(){
-            document.getElementById("bg-model").style.display = "flex";
+        function get(name){
+            if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+                return decodeURIComponent(name[1]);
         }
 
-        var cont = document.getElementById("bg-model");
-        cont.addEventListener("click",function(event){
-            // console.log([...event.target.classList].indexOf('PT'));
-            if([...event.target.classList].indexOf('PT') === -1){
-                document.getElementById("bg-model").style.display = "none";
-            };
-        })
+        // ---------------------------------------------------------------------------------------------
+        function get_machine_helper(){
+
+            get_machines(get("site"));
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        function addmachineToHtml(type, status){
+            if (type == 1) {type = "wash"};
+            if (type == 2) {type = "dry"};
+            if (type == 3) {type = "other"};
+
+            if (status == "0") {status = "Ava"};
+            if (status == "1") {status = "UnAva"};
+
+            let domId = type + status +"Sec";
+
+            console.log(domId);
+            $("#"+ domId).append('<img src="Resource/imgs/LM.svg" class="lm"/>');
+
+
+
+        }
+
+        //
+        function get_machines(site){
+            let washStatus = [];
+            let dryStatus = [];
+            let otherStatus = [];
+
+            let url = "http://127.0.0.1:5000/dashboard?site=" + site;
+            $.ajax({
+                type: "POST",
+                url:"http://127.0.0.1:5000/dashboard?site=" + site,
+                success:function(msg){
+                    for( i in msg){
+                        if(i == "site"){continue;}
+                        let machineId = i;
+                        let status = msg[i];
+                        let machineType = String(machineId)[0]; //if the first digit is a 1, it is a washer, if it is a 2, it is a drier, if it is a 3
+                        
+                        if(machineType == "1" && status == 0){washStatus.push(0)};
+                        if(machineType == "1" && status == 1){washStatus.push(1)};
+                        if(machineType == "2" && status == 0){dryStatus.push(0)};
+                        if(machineType == "2" && status == 1){dryStatus.push(1)};
+                        if(machineType == "3" && status == 0){otherStatus.push(0)};
+                        if(machineType == "3" && status == 1){otherStatus.push(1)};
+
+                        addmachineToHtml(machineType,status);
+                    }
+
+                    // console.log(washStatus);
+                    // console.log(dryStatus);
+                    // console.log(otherStatus);
+
+                    let washPerc = washStatus.filter(x => x === 0).length/washStatus.length*100;
+                    let dryPerc = dryStatus.filter(x => x === 0).length/dryStatus.length*100;
+                    let otherPerc = otherStatus.filter(x => x === 0).length/otherStatus.length*100;
+
+                    increase([washPerc,dryPerc,otherPerc]);
+                }
+            })
+        }
+
+
+
+        get_machine_helper();
     </script>
 
-    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Resource/js/script.js"></script>
-
-
 
 
 

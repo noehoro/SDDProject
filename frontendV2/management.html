@@ -94,8 +94,7 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "washAvaSec">
 
                             </div>
                         </div>
@@ -103,8 +102,7 @@
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "washUnAvaSec">
 
                             </div>
                         </div>
@@ -120,8 +118,7 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "dryAvaSec">
 
                                 
                             </div>
@@ -130,8 +127,7 @@
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "dryUnAvaSec">
 
                             </div>
                         </div>
@@ -147,7 +143,7 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
+                            <div class="avaSection" id = "otherAvaSec">
 
                             </div>
                         </div>
@@ -155,7 +151,7 @@
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
+                            <div class="unavaSection" id = "otherUnAvaSec">
                             </div>
                         </div>
                     </div>
@@ -202,7 +198,7 @@
             }
         }
 
-        increase([7,78,8]);
+
 
         // ---------------------------------------------------------------------------------------------
         function show_create_option(){
@@ -244,20 +240,65 @@
                 success:function(msg){
                     var site = msg["site"]; 
                     get_machines(site);
+
                 }
             })
         }
 
         // ---------------------------------------------------------------------------------------------
+        function addmachineToHtml(type, status){
+            if (type == 1) {type = "wash"};
+            if (type == 2) {type = "dry"};
+            if (type == 3) {type = "other"};
+
+            if (status == "0") {status = "Ava"};
+            if (status == "1") {status = "UnAva"};
+
+            let domId = type + status +"Sec";
+
+            console.log(domId);
+            $("#"+ domId).append('<img src="Resource/imgs/LM.svg" class="lm"/>');
+
+
+
+        }
+
+        //
         function get_machines(site){
+            let washStatus = [];
+            let dryStatus = [];
+            let otherStatus = [];
 
             let url = "http://127.0.0.1:5000/dashboard?site=" + site;
-            console.log(url);
             $.ajax({
                 type: "POST",
                 url:"http://127.0.0.1:5000/dashboard?site=" + site,
                 success:function(msg){
-                    console.log(msg);
+                    for( i in msg){
+                        if(i == "site"){continue;}
+                        let machineId = i;
+                        let status = msg[i];
+                        let machineType = String(machineId)[0]; //if the first digit is a 1, it is a washer, if it is a 2, it is a drier, if it is a 3
+                        
+                        if(machineType == "1" && status == 0){washStatus.push(0)};
+                        if(machineType == "1" && status == 1){washStatus.push(1)};
+                        if(machineType == "2" && status == 0){dryStatus.push(0)};
+                        if(machineType == "2" && status == 1){dryStatus.push(1)};
+                        if(machineType == "3" && status == 0){otherStatus.push(0)};
+                        if(machineType == "3" && status == 1){otherStatus.push(1)};
+
+                        addmachineToHtml(machineType,status);
+                    }
+
+                    // console.log(washStatus);
+                    // console.log(dryStatus);
+                    // console.log(otherStatus);
+
+                    let washPerc = washStatus.filter(x => x === 0).length/washStatus.length*100;
+                    let dryPerc = dryStatus.filter(x => x === 0).length/dryStatus.length*100;
+                    let otherPerc = otherStatus.filter(x => x === 0).length/otherStatus.length*100;
+
+                    increase([washPerc,dryPerc,otherPerc]);
                 }
             })
         }
@@ -269,11 +310,12 @@
                 type: "POST",
                 url:"http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id,
                 success:function(msg){
-                    console.log(msg);
+                    location.replace("../backend/" + msg);
                 }
             })
         }
 
+        get_machine_helper();
     </script>
 
     <script type="text/javascript" src="Resource/js/script.js"></script>
