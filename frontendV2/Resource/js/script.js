@@ -1,13 +1,17 @@
-function func1(){
+function redirectLogIn(){
     location.replace("managerLogin.html")
+}
+
+function redirectManager(){
+    location.replace("management.html")
 }
 
 // This header will be used throughout the pages
 let header = 
 '<div id="header"> Laundry Management Tool</div><div id = "nav">' +
     '<div id = "option">' +
-        '<div id = "" onclick=func() style="cursor: pointer;">MACHINES</div>' +
-        '<div id = "about" onclick= func1() style="cursor: pointer;">LOG IN</div>' +
+        '<div id = "" onclick=redirectManager() style="cursor: pointer;">MANAGE</div>' +
+        '<div id = "about" onclick= redirectLogIn() style="cursor: pointer;">LOG IN</div>' +
     '</div>'+
 '</div>'+
 '<div id="mai_logo_container">'+
