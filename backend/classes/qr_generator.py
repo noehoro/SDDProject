@@ -35,4 +35,4 @@ class QRBlueprint(object):
 		 	return "ERROR, Please Refresh the Page and Try again"
 
 		# Send the routing code back to the user
-		return (self.routing_code + '.svg')
+		return (self.routing_code + '.png')

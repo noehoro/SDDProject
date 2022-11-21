@@ -1,0 +1,172 @@
+<!-- Chris He, 2022 -->
+<!-- chris@maigod.net -->
+<!-- Potential Features to be Added: -->
+<!-- three types of machine -->
+<!-- scanning code should run a machine, how is this handled -->
+<!-- hover machine to show time -->
+<!-- new machine needs to know what type of machine -->
+<!-- time in new-machine is how long it takes to run -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Management Tool</title>
+    <link rel = "stylesheet" href = "Resource/css/style.css">
+    <link rel = "stylesheet" href = "Resource/css/footer.css">
+    <link rel = "stylesheet" href = "Resource/css/login.css">
+    <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+
+</head>
+<body>
+    <div id="bbContainer">
+        <div id="header_container">
+            <div id = "header"> Laundry Management Tool</div>
+            <div id = "nav">
+            </div>
+            <div id="mai_logo_container">
+                <img src="Resource/imgs/logo.PNG" id="mai_logo" >
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <!--ADD YOUR CODE HERE  -->
+        <div id="article">
+            <div class="user">
+                <header class="user__header">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
+                    <h1 class="user__title">Enter Your Phone Number</h1>
+                </header>
+                
+                <form class="form">
+                    <div class="form__group">
+                        <input type="text" placeholder="+15083672342" class="form__input" id ="username" />
+                    </div>
+    
+
+
+
+                    
+                    <button class="btn" type="button" onclick = runmachine()>Run Machine</button>
+
+
+                    <div id="register">
+                        <span id = "registerLink">Broken? Click here to
+                            <a onclick=report() class = "link">Report</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- -------------------------------------------------------------------------------------------------- -->
+
+        <div id = "footer_container">
+            <footer id = "footer">
+                    <div class="footer-content">
+                        <h3>Laundry Management Tool</h3>
+                        <div id ="term" onclick = "func()">Terms and Privacy</div>
+                        <ul class="socials">
+                            <li><a href="https://github.com/noehoro/SDDProject"><i class="fa fa-github"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>copyright &copy;2022. designed by <span>Laundry master</span></p>
+                    </div>
+            </footer>
+        </div>
+    </div>
+
+    <div id="bg-model">
+        <div id ="model-content" class = "PT">
+            <h1 class = "PT">Privacy Policy</h1>
+                <h2 class = "PT">Personal Data Collection</h2>
+                    <h4 class = "PT">The site does not read or collect file content, metadata, or other data from your uploaded files.</h4>
+                <h2 class = "PT">Use of Your Personal Data</h2>
+                    <h4 class = "PT">The site does not collect any personal data.</h4>
+                <h2 class = "PT">Handling of Your Files</h2>
+                    <h4 class = "PT">The files will exist momentarily in the server to retrieve the power information. As soon as that is finished, all files will be <b>DELETED</b>.</h4>
+                <h2 class = "PT">Cookies</h2>
+                    <h4 class = "PT">The site does not collect any cookie</h4>
+            
+            <h1 class = "PT">Term of Service</h1>
+                <h2 class = "PT">Allowed Usage</h2>
+                    <h4 class = "PT">This service offers functionality to analyze power data from multiple .fit files. This service is provided through web interface. You agree to comply with the policies and limitations concerning the use of the Mai's Power Meter Comparison Tool. </h4>
+                    <h4 class = "PT">You agree to not reverse-compile or decompile, analyze, reverse-engineer, reverse-assemble or disassemble, unlock or otherwise attempt to discover the source code 
+                        or underlying algorithms of Mai's Power Meter Comparison Tool or attempt to do any of the foregoing in relation to the Mai's Power Meter Comparison Tool service.</h4>
+                <h2 class = "PT">Copyright Policy</h2>
+                    <h4 class = "PT">You are responsible only for the data (e.g., files, URLs) that you send to the Mai's Power Meter Comparison Tool service. Mai's Power Meter Comparison Tool does not monitor customer content. Please remember that illicit exchanges of recordings and protected works and hacking harm artistic creation. And please respect the laws in force, especially those concerning intellectual and artistic property.</h4>
+        </div>
+    </div>
+
+    <script>
+
+        function GetURLParameter(sParam)
+        {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) 
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) 
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+        function report() {
+
+            let machineid = GetURLParameter('machine')
+            console.log("http://127.0.0.1:5000/report?machine=" + machineid);
+            $.ajax({
+
+                
+                type: "POST",
+                url: "http://127.0.0.1:5000/report?machine=" + machineid,
+                success:function(msg){
+                    alert("Machine Reported as Broken Successfully!")
+                }
+            })
+            console.log(machineid)
+            
+        }
+        function runmachine() {
+            let username = document.getElementById("username").value;
+            let machineid = GetURLParameter('machine')
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/run-machine?machine=" + machineid + "&number=" + username,
+                success:function(msg){
+                    alert("Machine Started Successfully! Check your phone for confirmation!")
+                }
+            })
+        }
+
+        // function register(){
+        //     let username = document.getElementById("username").value;
+        //     let password = document.getElementById("password").value;
+
+        //     console.log(username);
+        //     console.log(password);
+        //     $.ajax({
+        //         type: "GET",
+        //         // data: {info: info},
+        //         url:"http://127.0.0.1:5000/",
+        //         success:function(msg){
+        //             console.log(msg);
+        //         }
+        //     })
+        // }
+    </script>
+
+    <script type="text/javascript" src="Resource/js/script.js"></script>
+    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
+
+
+
+</body>
+</html>

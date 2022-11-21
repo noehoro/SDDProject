@@ -15,7 +15,7 @@ class SMS:
 	def __init__(self, number):
 		
 		# Setup twilio to be used by class, specify number to be used as sender
-		self.client = # blank as to not expose account credentials
+		self.client = Client('ACd6f8fa3555f40caef53a35bb1d9e3799', 'a669bab27a47bcf3f736c88a3b3b0ab2')
 		self.number = number
 
 	# send_start sends the starting message to the user, signaling a machine run

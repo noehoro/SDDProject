@@ -161,9 +161,12 @@ class App:
         # commented out so i dont get a fat bill. uncomment before demo
 
         # open a child process to handle SMS notifications 
-        # subprocess.Popen(['python3', 'classes/SMS.py', number, str(machine.time)], \
-        #     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        num = number.strip()
+        numbertopass = "+" + number
+        a = subprocess.Popen(['python3', 'classes/SMS.py', numbertopass, str(machine.time)], \
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
+        print(a)
         # Return how much time this machine will take
         return {'machine_time': str(Machine.query.get(machine_id).time)}
 
