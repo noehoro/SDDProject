@@ -55,7 +55,7 @@
 
 
                     
-                    <button class="btn" type="button" onclick = register()>Login</button>
+                    <button class="btn" type="button" onclick = code_login()>Login</button>
 
 
                     <div id="register">
@@ -109,6 +109,26 @@
     </div>
 
     <script>
+
+
+        function code_login() {
+            let code = document.getElementById("username").value;
+
+            console.log(code)
+
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/setsite?site=" + code,
+                success: function(msg){
+
+                    console.log(msg)
+
+                    location.replace("machineview.html")
+
+
+                }
+            })
+        }
 
         // function register(){
         //     let username = document.getElementById("username").value;
