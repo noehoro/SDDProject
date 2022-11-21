@@ -31,9 +31,9 @@
         </div>
 
         <div id="createMachineTypeContainer">
-            <div class="createMachineType createButton" onclick=new_machine()>Create Laundry Machine</div>
-            <div class="createMachineType createButton">Create Dryer</div>
-            <div class="createMachineType createButton">Create Other Machine</div>
+            <div class="createMachineType createButton" id = "wash" onclick = new_machine(this)>Create Laundry Machine</div>
+            <div class="createMachineType createButton" id = "dry" onclick = new_machine(this)>Create Dryer</div>
+            <div class="createMachineType createButton" id = "other" onclick = new_machine(this)>Create Other Machine</div>
         </div>
 
         <div id="article">
@@ -87,7 +87,6 @@
                 <div id="GraphicViewContainer">
 
                     <div class="machineSection">
-
                         <div class="graphicViewTypeText">
                             Laundry Machine
                         </div>
@@ -98,43 +97,7 @@
                             </div>
                             <div class="avaSection">
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
 
-                                
                             </div>
                         </div>
                         <div class="machineContainer">
@@ -143,8 +106,7 @@
                             </div>
                             <div class="unavaSection">
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+
                             </div>
                         </div>
                     </div>
@@ -161,11 +123,7 @@
                             </div>
                             <div class="avaSection">
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+
                                 
                             </div>
                         </div>
@@ -175,8 +133,7 @@
                             </div>
                             <div class="unavaSection">
                                 <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+
                             </div>
                         </div>
                     </div>
@@ -192,12 +149,7 @@
                                 available:
                             </div>
                             <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+
                             </div>
                         </div>
                         <div class="machineContainer">
@@ -205,9 +157,6 @@
                                 unavailable:
                             </div>
                             <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
                             </div>
                         </div>
                     </div>
@@ -226,6 +175,8 @@
 
     <script>
 
+        // ---------------------------------------------------------------------------------------------
+        // Animation for status bar
         function increase(perc) {
             //change status bar fill percentage
             let bars = document.getElementsByClassName("bar");
@@ -253,6 +204,8 @@
         }
 
         increase([7,78,8]);
+
+        // ---------------------------------------------------------------------------------------------
         function show_create_option(){
             document.querySelectorAll(".createMachineType").forEach(div => {
                 let currentDisplay = getComputedStyle(div).getPropertyValue('display');
@@ -261,6 +214,7 @@
             })
         }
 
+        // ---------------------------------------------------------------------------------------------
         function has_logged_in(){
             $.ajax({
                 type: "GET",
@@ -271,7 +225,7 @@
             })
         }
     
-
+        // ---------------------------------------------------------------------------------------------
         function get_site(){
             $.ajax({
                 type: "GET",
@@ -282,20 +236,22 @@
             })
         }
 
+        // ---------------------------------------------------------------------------------------------
         function get_machines(){
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/dashboard?site=root",
+                url:"http://127.0.0.1:5000/dashboard?site=root0",
                 success:function(msg){
                     console.log(msg);
                 }
             })
         }
 
-        function new_machine(){
+        // ---------------------------------------------------------------------------------------------
+        function new_machine(ele){
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=60&site=root&type=wash",
+                url:"http://127.0.0.1:5000/new-machine?time=60&site=root0&type=" + ele.id,
                 // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
                 success:function(msg){
 
@@ -312,16 +268,6 @@
                     //     alert("Logged in successfully");
                     //     location.replace("management.html")
                     // }
-                }
-            })
-        }
-
-        function logout() { 
-            $.ajax({
-                type: "GET",
-                url: "https://127.0.0.1:5000/logout",
-                success:function(msg){
-                    console.log(msg)
                 }
             })
         }
