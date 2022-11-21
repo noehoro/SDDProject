@@ -227,6 +227,7 @@
                 url:"http://127.0.0.1:5000/getsite",
                 success:function(msg){
                     var site = msg["site"]; 
+
                     new_machine(site,ele)
                 }
             })
@@ -239,6 +240,7 @@
                 url:"http://127.0.0.1:5000/getsite",
                 success:function(msg){
                     var site = msg["site"]; 
+                    console.log(site);
                     get_machines(site);
 
                 }
@@ -251,8 +253,11 @@
             if (type == 2) {type = "dry"};
             if (type == 3) {type = "other"};
 
-            if (status == "0") {status = "Ava"};
-            if (status == "1") {status = "UnAva"};
+            if (status == "0") {status = "Ava"}
+            else{
+                status = "UnAva";
+            }
+            // if (status != "0") {status = "UnAva"};
 
             let domId = type + status +"Sec";
 
@@ -308,7 +313,7 @@
             console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id);
             $.ajax({
                 type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id,
+                url:"http://127.0.0.1:5000/new-machine?time=600&site="+ site+"&type=" + ele.id,
                 success:function(msg){
                     window.open("http://127.0.0.1:5500/backend/" + msg, '_blank').focus();
                 }

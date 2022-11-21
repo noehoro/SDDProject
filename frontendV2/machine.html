@@ -159,6 +159,7 @@
     </div>
     <div id="bg-model"></div>
     <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="Resource/js/script.js"></script>
     <script>
         
         // ---------------------------------------------------------------------------------------------
@@ -199,15 +200,16 @@
 
             get_machines(get("site"));
         }
-
-        // ---------------------------------------------------------------------------------------------
         function addmachineToHtml(type, status){
             if (type == 1) {type = "wash"};
             if (type == 2) {type = "dry"};
             if (type == 3) {type = "other"};
 
-            if (status == "0") {status = "Ava"};
-            if (status == "1") {status = "UnAva"};
+            if (status == "0") {status = "Ava"}
+            else{
+                status = "UnAva";
+            }
+            // if (status != "0") {status = "UnAva"};
 
             let domId = type + status +"Sec";
 
@@ -236,11 +238,11 @@
                         let machineType = String(machineId)[0]; //if the first digit is a 1, it is a washer, if it is a 2, it is a drier, if it is a 3
                         
                         if(machineType == "1" && status == 0){washStatus.push(0)};
-                        if(machineType == "1" && status == 1){washStatus.push(1)};
+                        if(machineType == "1" && status != 0){washStatus.push(1)};
                         if(machineType == "2" && status == 0){dryStatus.push(0)};
-                        if(machineType == "2" && status == 1){dryStatus.push(1)};
+                        if(machineType == "2" && status != 0){dryStatus.push(1)};
                         if(machineType == "3" && status == 0){otherStatus.push(0)};
-                        if(machineType == "3" && status == 1){otherStatus.push(1)};
+                        if(machineType == "3" && status != 0){otherStatus.push(1)};
 
                         addmachineToHtml(machineType,status);
                     }
@@ -263,7 +265,7 @@
         get_machine_helper();
     </script>
 
-    <script type="text/javascript" src="Resource/js/script.js"></script>
+
 
 
 

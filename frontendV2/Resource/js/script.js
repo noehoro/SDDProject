@@ -15,7 +15,7 @@ let header =
     '</div>'+
 '</div>'+
 '<div id="mai_logo_container">'+
-    '<img src="Resource/imgs/logo.PNG" id="mai_logo" ></div>'
+    '\<a href= \"/frontendV2\"> <img src="Resource/imgs/logo.PNG" id="mai_logo" ></a></div>'
 
 // This footer will be used throughout the pages
 let footer =  
@@ -53,6 +53,8 @@ let bgModel =
 '    <h2 class = "PT">Copyright Policy</h2>'+
 '        <h4 class = "PT">You are responsible only for the data (e.g., files, URLs) that you send to the Mai\'s Power Meter Comparison Tool service. Mai\'s Power Meter Comparison Tool does not monitor customer content. Please remember that illicit exchanges of recordings and protected works and hacking harm artistic creation. And please respect the laws in force, especially those concerning intellectual and artistic property.</h4>'+
 '</div>'+
+
+
 
 $('#header_container').append(header);
 $('#footer_container').append(footer);
