@@ -22,7 +22,7 @@
     gap: 1rem
 }
 
-.createMachineType{
+.createMachineType, .machineTime{
     display: none;
     /* display: flex; */
     justify-content: center;
@@ -37,4 +37,19 @@
 .createButton:hover{
     color: antiquewhite;
     cursor: pointer;
+}
+
+.createWashMachineTimeContainer{
+    margin-top: 2rem;
+    /* display: flex; */
+    display: none;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.machineTime{
+    /* display: none; */
+    display: flex;
+    height:3rem;
+    width: 5rem;
 }

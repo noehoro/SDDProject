@@ -30,10 +30,39 @@
         </div>
 
         <div id="createMachineTypeContainer">
-            <div class="createMachineType createButton" id = "wash" onclick = new_machine_helper(this)>Create Laundry Machine</div>
-            <div class="createMachineType createButton" id = "dry" onclick = new_machine_helper(this)>Create Dryer</div>
-            <div class="createMachineType createButton" id = "other" onclick = new_machine_helper(this)>Create Other Machine</div>
+            <div class="createMachineType createButton" id = "wash" onclick = show_time(this)>Create Laundry Machine</div>
+            <div class="createMachineType createButton" id = "dry" onclick = show_time(this)>Create Dryer</div>
+            <div class="createMachineType createButton" id = "other" onclick = show_time(this)>Create Other Machine</div>
         </div>
+
+        <div class="createWashMachineTimeContainer" id ="washTime" data-type = "wash">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        <div class="createWashMachineTimeContainer" id ="dryTime" data-type = "dry">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        <div class="createWashMachineTimeContainer" id ="otherTime" data-type = "other">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        
 
         <div id="article">
 
@@ -207,6 +236,7 @@
                 if(currentDisplay == "flex"){div.style.display = "none";}
                 if(currentDisplay == "none"){div.style.display = "flex";}
             })
+
         }
 
         // ---------------------------------------------------------------------------------------------
@@ -219,16 +249,46 @@
                 }
             })
         }
-    
+        
         // ---------------------------------------------------------------------------------------------
-        function new_machine_helper(ele){
+        function show_time(ele){
+            
+            //reset all color to white
+            document.querySelectorAll(".createButton").forEach(div => {
+                div.style.color = "white";
+            })
+            
+            //set selected color to different color
+            ele.style.color = "#b7e1cc";
+
+            //reset all time button
+            document.querySelectorAll(".createWashMachineTimeContainer").forEach(div => {
+                div.style.display = "none";
+            })
+
+            //display selected time options
+            document.getElementById(ele.id + "Time").style.display = "flex";
+        }
+        
+        // ---------------------------------------------------------------------------------------------
+        document.querySelectorAll(".createWashMachineTimeContainer").forEach(div => {
+            div.addEventListener("click",function(event){
+                let typeOfMachine = event.target.parentNode.getAttribute("data-type"); //e.g. wash dry other
+                let time = event.target.innerHTML.slice(0,-3); //e.g. 15 30 45... 
+
+                new_machine_helper(typeOfMachine,time);
+            })
+        })
+
+        // ---------------------------------------------------------------------------------------------
+        function new_machine_helper(type,time){
             $.ajax({
                 type: "GET",
                 url:"http://127.0.0.1:5000/getsite",
                 success:function(msg){
                     var site = msg["site"]; 
 
-                    new_machine(site,ele)
+                    new_machine(site,type,time)
                 }
             })
         }
@@ -309,15 +369,16 @@
         }
 
         // ---------------------------------------------------------------------------------------------
-        function new_machine(site,ele){
-            console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id);
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=600&site="+ site+"&type=" + ele.id,
-                success:function(msg){
-                    window.open("http://127.0.0.1:5500/backend/" + msg, '_blank').focus();
-                }
-            })
+        function new_machine(site,type,time){
+            console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + type + "&time=" + time);
+            
+            // $.ajax({
+            //     type: "POST",
+            //     url:"http://127.0.0.1:5000/new-machine?time=600&site="+ site+"&type=" + ele.id,
+            //     success:function(msg){
+            //         window.open("http://127.0.0.1:5500/backend/" + msg, '_blank').focus();
+            //     }
+            // })
         }
 
         get_machine_helper();
