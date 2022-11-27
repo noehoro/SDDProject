@@ -81,6 +81,9 @@
     backface-visibility: hidden;
   }
 
-  .avaSection, .unAvaSection{
+  .avaSection {
+    display: flex;
+  }
+  .unavaSection{
     display: flex;
   }
