@@ -40,17 +40,16 @@
                     <div class="form__group">
                         <input type="text" placeholder="+15083672342" class="form__input" id ="username" />
                     </div>
-    
-
-
-
                     
                     <button class="btn" type="button" onclick = runmachine()>Run Machine</button>
 
 
-                    <div id="register">
-                        <span id = "registerLink">Broken? Click here to
+                    <div id="register2">
+                        <span class = "registerLink2">Broken? Click here to
                             <a onclick=report() class = "link">Report</a>
+                        </span>
+                        <span class = "registerLink2">Is the machine Fixed? Click here to report 
+                            <a onclick=fix() class = "link">Fix</a>
                         </span>
                     </div>
                 </form>
@@ -107,9 +106,9 @@
                     alert("Machine Reported as Broken Successfully!")
                 }
             })
-            console.log(machineid)
-            
+            console.log(machineid) 
         }
+
         function runmachine() {
             let username = document.getElementById("username").value;
             let machineid = GetURLParameter('machine')
@@ -122,21 +121,21 @@
             })
         }
 
-        // function register(){
-        //     let username = document.getElementById("username").value;
-        //     let password = document.getElementById("password").value;
+        function fix() {
 
-        //     console.log(username);
-        //     console.log(password);
-        //     $.ajax({
-        //         type: "GET",
-        //         // data: {info: info},
-        //         url:"http://127.0.0.1:5000/",
-        //         success:function(msg){
-        //             console.log(msg);
-        //         }
-        //     })
-        // }
+            let machineid = GetURLParameter('machine')
+            // console.log("http://127.0.0.1:5000/fixed?machine=" + machineid);
+            $.ajax({                
+                type: "POST",
+                url: "http://127.0.0.1:5000/fixed?machine=" + machineid,
+                success:function(msg){
+
+                    alert("Machine fixed")
+                }
+            })
+            console.log(machineid) 
+        }
+
     </script>
 
     <script type="text/javascript" src="Resource/js/script.js"></script>
