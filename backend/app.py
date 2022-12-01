@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from helpers.database import db, Site, User, Machine, Activity
-from classes.qr_generator import QRBlueprint
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from classes.qr_generator import QRBlueprint
 from classes.auth import Auth
 from datetime import *
 import subprocess
@@ -163,10 +163,10 @@ class App:
         # open a child process to handle SMS notifications 
         num = number.strip()
         numbertopass = "+" + number
-        a = subprocess.Popen(['python3', 'classes/SMS.py', numbertopass, str(machine.time)], \
+        stdout_response = subprocess.Popen(['python3', 'classes/SMS.py', numbertopass, str(machine.time)], \
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-        print(a)
+        print(stdout_response)
         # Return how much time this machine will take
         return {'machine_time': str(Machine.query.get(machine_id).time)}
 
@@ -460,7 +460,8 @@ class AppWrapper:
         self.routes(True)
 
 
-#Driver Code, this is what's run if you run this python file. Just starts the application
+# Driver Code, this is what's run if you run this python file. Just starts the application on 
+# a development server
 if __name__ == "__main__":
     application = AppWrapper(start=True)
     application.start()
