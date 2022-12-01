@@ -134,3 +134,14 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+@media (max-width:1000px){
+    #article{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .secLvContainer{
+        width: 80vw;
+    }
+}
