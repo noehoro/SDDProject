@@ -1,3 +1,18 @@
+function func(){
+    document.getElementById("bg-model").style.display = "flex";
+    // document.getElementsByTagName("body")[0].style.overflow = "hidden";
+}
+
+var cont = document.getElementById("bg-model");
+cont.addEventListener("click",function(event){
+    // console.log([...event.target.classList].indexOf('PT'));
+    if([...event.target.classList].indexOf('PT') === -1){
+        document.getElementById("bg-model").style.display = "none";
+        // document.getElementsByTagName("body")[0].style.overflow = "visible";
+    };
+})
+
+
 function redirectLogIn(){
     location.replace("managerLogin.html")
 }
@@ -53,7 +68,6 @@ let bgModel =
 '    <h2 class = "PT">Copyright Policy</h2>'+
 '        <h4 class = "PT">You are responsible only for the data (e.g., files, URLs) that you send to the Mai\'s Power Meter Comparison Tool service. Mai\'s Power Meter Comparison Tool does not monitor customer content. Please remember that illicit exchanges of recordings and protected works and hacking harm artistic creation. And please respect the laws in force, especially those concerning intellectual and artistic property.</h4>'+
 '</div>'+
-
 
 
 $('#header_container').append(header);

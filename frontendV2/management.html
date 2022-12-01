@@ -30,10 +30,39 @@
         </div>
 
         <div id="createMachineTypeContainer">
-            <div class="createMachineType createButton" id = "wash" onclick = new_machine_helper(this)>Create Laundry Machine</div>
-            <div class="createMachineType createButton" id = "dry" onclick = new_machine_helper(this)>Create Dryer</div>
-            <div class="createMachineType createButton" id = "other" onclick = new_machine_helper(this)>Create Other Machine</div>
+            <div class="createMachineType createButton" id = "wash" onclick = show_time(this)>Create Laundry Machine</div>
+            <div class="createMachineType createButton" id = "dry" onclick = show_time(this)>Create Dryer</div>
+            <div class="createMachineType createButton" id = "other" onclick = show_time(this)>Create Other Machine</div>
         </div>
+
+        <div class="createWashMachineTimeContainer" id ="washTime" data-type = "wash">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        <div class="createWashMachineTimeContainer" id ="dryTime" data-type = "dry">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        <div class="createWashMachineTimeContainer" id ="otherTime" data-type = "other">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        
 
         <div id="article">
 
@@ -144,6 +173,12 @@
                                 available:
                             </div>
                             <div class="avaSection" id = "otherAvaSec">
+                                <!-- <div class="imgContainer hoverAva">
+                                    <img src="Resource/imgs/LM.svg" class="lm">
+                                    <div class="middle">
+                                        <div class="text">John Doe</div>
+                                    </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -168,162 +203,8 @@
     </div>
     <div id="bg-model"></div>
     <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
-    <script>
-        
-        // ---------------------------------------------------------------------------------------------
-        // Animation for status bar
-        function increase(perc) {
-            //change status bar fill percentage
-            let bars = document.getElementsByClassName("bar");
-            for(let i = 0; i < bars.length; i++){
-                bars[i].style.setProperty('--m',perc[i].toString()+"%");
-            }
-            
-            // Change the variable to modify the speed of the number increasing from 0 to (ms)
-            let SPEED = 30;
-            // Retrieve the percentage value
-            let limitList = [];
-            let barList = document.getElementsByClassName("value1");
-            for(let i = 0; i < barList.length; i++){
-                barList[i].innerHTML = perc[i];
-                parseInt(limitList.push(barList[i].innerHTML),10);
-            }
-
-            for(let j = 0; j < limitList.length; j++){
-                for(let i = 0; i <= limitList[j]; i++) {
-                    setTimeout(function () {
-                        document.getElementsByClassName("value1")[j].innerHTML = i + "%";
-                    }, SPEED * i);
-                }
-            }
-        }
-
-
-
-        // ---------------------------------------------------------------------------------------------
-        function show_create_option(){
-            document.querySelectorAll(".createMachineType").forEach(div => {
-                let currentDisplay = getComputedStyle(div).getPropertyValue('display');
-                if(currentDisplay == "flex"){div.style.display = "none";}
-                if(currentDisplay == "none"){div.style.display = "flex";}
-            })
-        }
-
-        // ---------------------------------------------------------------------------------------------
-        function has_logged_in(){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/loggedin",
-                success:function(msg){
-                    console.log(msg);
-                }
-            })
-        }
-    
-        // ---------------------------------------------------------------------------------------------
-        function new_machine_helper(ele){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/getsite",
-                success:function(msg){
-                    var site = msg["site"]; 
-
-                    new_machine(site,ele)
-                }
-            })
-        }
-
-        // ---------------------------------------------------------------------------------------------
-        function get_machine_helper(){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/getsite",
-                success:function(msg){
-                    var site = msg["site"]; 
-                    console.log(site);
-                    get_machines(site);
-
-                }
-            })
-        }
-
-        // ---------------------------------------------------------------------------------------------
-        function addmachineToHtml(type, status){
-            if (type == 1) {type = "wash"};
-            if (type == 2) {type = "dry"};
-            if (type == 3) {type = "other"};
-
-            if (status == "0") {status = "Ava"}
-            else{
-                status = "UnAva";
-            }
-            // if (status != "0") {status = "UnAva"};
-
-            let domId = type + status +"Sec";
-
-            console.log(domId);
-            $("#"+ domId).append('<img src="Resource/imgs/LM.svg" class="lm"/>');
-
-
-
-        }
-
-        //
-        function get_machines(site){
-            let washStatus = [];
-            let dryStatus = [];
-            let otherStatus = [];
-
-            let url = "http://127.0.0.1:5000/dashboard?site=" + site;
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/dashboard?site=" + site,
-                success:function(msg){
-                    for( i in msg){
-                        if(i == "site"){continue;}
-                        let machineId = i;
-                        let status = msg[i];
-                        let machineType = String(machineId)[0]; //if the first digit is a 1, it is a washer, if it is a 2, it is a drier, if it is a 3
-                        
-                        if(machineType == "1" && status == 0){washStatus.push(0)};
-                        if(machineType == "1" && status != 0){washStatus.push(1)};
-                        if(machineType == "2" && status == 0){dryStatus.push(0)};
-                        if(machineType == "2" && status != 0){dryStatus.push(1)};
-                        if(machineType == "3" && status == 0){otherStatus.push(0)};
-                        if(machineType == "3" && status != 0){otherStatus.push(1)};
-
-                        addmachineToHtml(machineType,status);
-                    }
-
-                    // console.log(washStatus);
-                    // console.log(dryStatus);
-                    // console.log(otherStatus);
-
-                    let washPerc = washStatus.filter(x => x === 0).length/washStatus.length*100;
-                    let dryPerc = dryStatus.filter(x => x === 0).length/dryStatus.length*100;
-                    let otherPerc = otherStatus.filter(x => x === 0).length/otherStatus.length*100;
-
-                    increase([washPerc,dryPerc,otherPerc]);
-                }
-            })
-        }
-
-        // ---------------------------------------------------------------------------------------------
-        function new_machine(site,ele){
-            console.log("http://127.0.0.1:5000/new-machine?time=60&site="+ site+"&type=" + ele.id);
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=600&site="+ site+"&type=" + ele.id,
-                success:function(msg){
-                    window.open("http://127.0.0.1:5500/backend/" + msg, '_blank').focus();
-                }
-            })
-        }
-
-        get_machine_helper();
-    </script>
-
     <script type="text/javascript" src="Resource/js/script.js"></script>
+    <script type="text/javascript" src="Resource/js/management.js"></script>
 
 
 
