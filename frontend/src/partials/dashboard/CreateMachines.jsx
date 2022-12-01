@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { newMachineCall } from '../../helpers/apiCalls'
 import { filterContext } from '../../helpers/Context'
 
 // Import utilities
@@ -6,6 +7,7 @@ import { tailwindConfig } from '../../utils/Utils'
 
 const BarGraphCard = () => {
   const { dispatchFilterContextValue } = useContext(filterContext)
+  const [imageURL, setImageURL] = useState('')
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -20,7 +22,10 @@ const BarGraphCard = () => {
     })
   }
 
-  const handleCreate = () => {}
+  const handleCreate = async () => {
+    const url = await newMachineCall(inputs)
+    setImageURL(url)
+  }
 
   return (
     <div className="flex w-4/5 flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
@@ -62,6 +67,13 @@ const BarGraphCard = () => {
           Create Machine
         </button>
       </div>
+      {imageURL && (
+        <div className="p-4 w-3/5">
+          <h1>New Machine QR Code</h1>
+          <br />
+          <img src={imageURL} alt="" />
+        </div>
+      )}
     </div>
   )
 }

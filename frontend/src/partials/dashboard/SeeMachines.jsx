@@ -1,21 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { filterContext } from '../../helpers/Context'
 
 // Import utilities
 import { tailwindConfig } from '../../utils/Utils'
 
-const SeeMachinesCard = () => {
-  const { dispatchFilterContextValue } = useContext(filterContext)
-
+const SeeMachinesCard = ({ machine }) => {
   const [machineNames, setMachineNames] = useState([])
   const [machineTimes, setMachineTimes] = useState([])
 
   useEffect(() => {
     const names = ['machine 1', 'machine 2']
     const times = [20, 40]
+
+    if (machine) {
+      names.push('test Machine')
+      times.push(1)
+    }
     setMachineNames(names)
     setMachineTimes(times)
-  }, [])
+  }, [machine])
 
   const getPercentage = (key) => {
     return Math.round((machineTimes[key] / 60) * 100)

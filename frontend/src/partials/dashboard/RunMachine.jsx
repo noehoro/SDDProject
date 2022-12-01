@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { runMachineCall } from '../../helpers/apiCalls'
 import { filterContext } from '../../helpers/Context'
 
 // Import utilities
 import { tailwindConfig } from '../../utils/Utils'
 
-const RunMachinesCard = () => {
-  const { dispatchFilterContextValue } = useContext(filterContext)
-
+const RunMachinesCard = ({ machine }) => {
   const [inputs, setInputs] = useState({
     machineID: '',
   })
@@ -19,7 +18,10 @@ const RunMachinesCard = () => {
     })
   }
 
-  const handleMachineRun = () => {}
+  const handleMachineRun = async () => {
+    const timer = await runMachineCall(inputs.machineID)
+    machine(true)
+  }
 
   return (
     <div className="flex w-4/5 flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">

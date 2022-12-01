@@ -38,6 +38,10 @@ export const contextReducer = (state, action) => {
         loggedIn: false,
         username: "",
       };
+    case "runMachine":
+      return {
+        machine: "10",
+      };
     default:
       throw new Error();
   }

@@ -4,11 +4,14 @@ from qr_generator import qr_code, create_code
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from datetime import *
 from classes.auth import Auth
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = 'login-manager-admin'
+CORS(app, supports_credentials=True, origins="*")
 
 
 db.app = app
@@ -21,31 +24,31 @@ login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
 
+
 @login_manager.user_loader
 def get_user(userid):
     return User.query.get(int(userid))
+
 
 @app.route("/register", methods=['POST'])
 def register():
 
     if request.method == "POST":
-        response = {'exists':0, 'success': 0} 
+        response = {'exists': 0, 'success': 0}
         AuthAgent = Auth()
 
-        username = request.args.get('username')
-        
-        password = AuthAgent.hash_key(request.args.get('password'))
-        site_post = request.args.get('site')
+        username = request.get_json()['username']
 
+        password = AuthAgent.hash_key(request.get_json()['password'])
+        site_post = request.get_json()['site']
 
         if User.query.filter_by(username=username).first():
             response['exists'] = 1
-            response['success'] = 1 
-            return response # sends back a failure as a response, user exists
+            response['success'] = 1
+            return response  # sends back a failure as a response, user exists
 
         new_user = User(username=username, password=password, site=site_post)
         new_site = Site(name=site_post)
-
 
         db.session.add(new_user)
         db.session.add(new_site)
@@ -56,14 +59,15 @@ def register():
 
         return response
 
+
 @app.route('/login', methods=['POST'])
 def login():
 
     if request.method == 'POST':
         response = {"user": 0, "pass": 0, "loggedin": 0}
         AuthAgent = Auth()
-        username = request.args.get('username')
-        password = request.args.get('password')
+        username = request.get_json()['username']
+        password = request.get_json()['password']
 
         user = User.query.filter_by(username=username).first()
         if user:
@@ -73,37 +77,42 @@ def login():
                 return response
             else:
                 response['pass'] = 1
-                return response  
+                return response
 
         else:
             response['user'] = 1
             return response
 
+
 @app.route('/new-machine', methods=['POST'])
 def new_machine():
 
-    if request.method == 'POST':
+    time = request.get_json()['time']
+    site = request.get_json()['site']
 
-        time = request.args['time']
-        site = request.args['site']
+    machine_id = int(str(datetime.now().timestamp()).replace('.', ''))
 
-        machine_id = int(str(datetime.now().timestamp()).replace('.',''))
+    new_machine = Machine(id=machine_id, time=time, site=site)
+    route = create_code(is_new=1, code_int=machine_id)
 
-        new_machine = Machine(id=machine_id, time=time, site=site)
-        route = create_code(is_new=1, code_int=machine_id)
+    db.session.add(new_machine)
+    db.session.commit()
 
-        db.session.add(new_machine)
-        db.session.commit()
+    return send_file(route, mimetype='image/png')
 
-        return send_file(route, mimetype='image/png')
-    else:
-        return 'new_machine is a POST only endpoint'
 
 @app.route("/run-machine", methods=['POST'])
 def run_machine():
 
-    machine_id = request.args['machine']
+    machine_id = request.get_json()['machine']
+    site = request.get_json()['site']
+    time = int(str(datetime.now().timestamp()).replace('.', ''))
+    new_activity = Activity(time=time,  machine_id=machine_id, site=site)
+
+    db.session.add(new_activity)
+    db.session.commit()
     return str(Machine.query.get(machine_id).time)
+
 
 @app.route("/logout")
 @login_required
@@ -124,21 +133,24 @@ def dashboard():
 
     return form
 
+
 @app.route('/getsite')
 def getsite():
 
     return {'site': current_user.site}
 
+
 @app.route("/")
 def homepage():
 
     # we can through some data return here so that we can display
-    # messages on our 
+    # messages on our
     info_out = dict()
     info_out['title'] = 'Laundry Manager'
-    info_out['ver']= 'beta_v1.0'
+    info_out['ver'] = 'beta_v1.0'
 
     return info_out
+
 
 if __name__ == "__main__":
     app.run()
