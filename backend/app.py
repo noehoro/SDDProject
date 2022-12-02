@@ -287,6 +287,8 @@ class App:
         # Return success to the client
         return {'success':1}
 
+
+
     # Homepage should not be accessed by the user, but can if they really want to. All it does is specify
     # the name and version. This is used to see if the application was running properly on a server or not.
     def homepage(self):
@@ -316,6 +318,10 @@ class App:
 
         except:
             return {'success':0}
+
+    def set_site(self, newsite):
+        self.login_session['site'] = newsite
+        return {'success': 1}
 
     # Change password handles managers who need to change the password tied to their account
     def change_password(self, new_password):
@@ -363,6 +369,11 @@ class AppWrapper:
         @self.app.route('/') # Functional
         def homepage():
             return self.app_router.homepage()
+
+        @self.app.route('/setsite', methods=['POST'])
+        def setsite():
+            if request.method == "POST":
+                return self.app_router.set_site(request.args['site'])
 
         #Login Route
         @self.app.route('/loggedin') # Functional
