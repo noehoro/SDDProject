@@ -16,7 +16,6 @@
     <link rel = "stylesheet" href = "Resource/css/management.css">
     <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <script type="text/javascript" src="Resource/power_compare_file/demo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js" integrity="sha512-M72KfQy4kPuLYC6CeTrN0eA17U1lXEMrr5qEJC/40CLdZGC3HpwPS0esQLqBHnxty2FIcuNdP9EqwSOCLEVJXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
@@ -31,10 +30,39 @@
         </div>
 
         <div id="createMachineTypeContainer">
-            <div class="createMachineType createButton" onclick=new_machine()>Create Laundry Machine</div>
-            <div class="createMachineType createButton">Create Dryer</div>
-            <div class="createMachineType createButton">Create Other Machine</div>
+            <div class="createMachineType createButton" id = "wash" onclick = show_time(this)>Create Laundry Machine</div>
+            <div class="createMachineType createButton" id = "dry" onclick = show_time(this)>Create Dryer</div>
+            <div class="createMachineType createButton" id = "other" onclick = show_time(this)>Create Other Machine</div>
         </div>
+
+        <div class="createWashMachineTimeContainer" id ="washTime" data-type = "wash">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        <div class="createWashMachineTimeContainer" id ="dryTime" data-type = "dry">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        <div class="createWashMachineTimeContainer" id ="otherTime" data-type = "other">
+            <div class="machineTime">15 min</div>
+            <div class="machineTime">30 min</div>
+            <div class="machineTime">45 min</div>
+            <div class="machineTime">60 min</div>
+            <div class="machineTime">90 min</div>
+            <div class="machineTime">120 min</div>
+        </div>
+
+        
 
         <div id="article">
 
@@ -87,7 +115,6 @@
                 <div id="GraphicViewContainer">
 
                     <div class="machineSection">
-
                         <div class="graphicViewTypeText">
                             Laundry Machine
                         </div>
@@ -96,55 +123,16 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "washAvaSec">
 
-                                
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "washUnAvaSec">
+
                             </div>
                         </div>
                     </div>
@@ -159,13 +147,8 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "dryAvaSec">
+
                                 
                             </div>
                         </div>
@@ -173,10 +156,8 @@
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "dryUnAvaSec">
+
                             </div>
                         </div>
                     </div>
@@ -191,23 +172,21 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "otherAvaSec">
+                                <!-- <div class="imgContainer hoverAva">
+                                    <img src="Resource/imgs/LM.svg" class="lm">
+                                    <div class="middle">
+                                        <div class="text">John Doe</div>
+                                    </div>
+                                </div> -->
+
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "otherUnAvaSec">
                             </div>
                         </div>
                     </div>
@@ -223,115 +202,9 @@
         
     </div>
     <div id="bg-model"></div>
-
-    <script>
-
-        function increase(perc) {
-            //change status bar fill percentage
-            let bars = document.getElementsByClassName("bar");
-            for(let i = 0; i < bars.length; i++){
-                bars[i].style.setProperty('--m',perc[i].toString()+"%");
-            }
-            
-            // Change the variable to modify the speed of the number increasing from 0 to (ms)
-            let SPEED = 30;
-            // Retrieve the percentage value
-            let limitList = [];
-            let barList = document.getElementsByClassName("value1");
-            for(let i = 0; i < barList.length; i++){
-                barList[i].innerHTML = perc[i];
-                parseInt(limitList.push(barList[i].innerHTML),10);
-            }
-
-            for(let j = 0; j < limitList.length; j++){
-                for(let i = 0; i <= limitList[j]; i++) {
-                    setTimeout(function () {
-                        document.getElementsByClassName("value1")[j].innerHTML = i + "%";
-                    }, SPEED * i);
-                }
-            }
-        }
-
-        increase([7,78,8]);
-        function show_create_option(){
-            document.querySelectorAll(".createMachineType").forEach(div => {
-                let currentDisplay = getComputedStyle(div).getPropertyValue('display');
-                if(currentDisplay == "flex"){div.style.display = "none";}
-                if(currentDisplay == "none"){div.style.display = "flex";}
-            })
-        }
-
-        function has_logged_in(){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/loggedin",
-                success:function(msg){
-                    console.log(msg);
-                }
-            })
-        }
-    
-
-        function get_site(){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/getsite",
-                success:function(asdf){
-                    console.log(asdf);
-                }
-            })
-        }
-
-        function get_machines(){
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/dashboard?site=root",
-                success:function(msg){
-                    console.log(msg);
-                }
-            })
-        }
-
-        function new_machine(){
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=60&site=root&type=wash",
-                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
-                success:function(msg){
-
-                    console.log(msg);
-                    // window.location.assign("../backend/qr_1408.svg");
-                    // let loggedIn = msg["loggedin"];
-                    // let pass = msg["pass"];
-                    // let user = msg["user"]
-                    
-
-                    // if(!loggedIn){
-                    //     alert("username/password/sitename already exist");
-                    // }else{
-                    //     alert("Logged in successfully");
-                    //     location.replace("management.html")
-                    // }
-                }
-            })
-        }
-
-        function logout() { 
-            $.ajax({
-                type: "GET",
-                url: "https://127.0.0.1:5000/logout",
-                success:function(msg){
-                    console.log(msg)
-                }
-            })
-        }
-
-
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="Resource/js/script.js"></script>
+    <script type="text/javascript" src="Resource/js/management.js"></script>
 
 
 

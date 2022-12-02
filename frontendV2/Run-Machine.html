@@ -1,0 +1,147 @@
+<!-- Chris He, 2022 -->
+<!-- chris@maigod.net -->
+<!-- Potential Features to be Added: -->
+<!-- three types of machine -->
+<!-- scanning code should run a machine, how is this handled -->
+<!-- hover machine to show time -->
+<!-- new machine needs to know what type of machine -->
+<!-- time in new-machine is how long it takes to run -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Management Tool</title>
+    <link rel = "stylesheet" href = "Resource/css/style.css">
+    <link rel = "stylesheet" href = "Resource/css/footer.css">
+    <link rel = "stylesheet" href = "Resource/css/login.css">
+    <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+
+</head>
+<body>
+    <div id="bbContainer">
+        <div id="header_container">
+
+        </div>
+
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <!--ADD YOUR CODE HERE  -->
+        <div id="article">
+            <div class="user">
+                <header class="user__header">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg" alt="" />
+                    <h1 class="user__title">Enter Your Phone Number</h1>
+                </header>
+                
+                <form class="form">
+                    <div class="form__group">
+                        <input type="text" placeholder="+15083672342" class="form__input" id ="username" />
+                    </div>
+                    
+                    <button class="btn" type="button" onclick = runmachine()>Run Machine</button>
+
+
+                    <div id="register2">
+                        <span class = "registerLink2">Broken? Click here to
+                            <a onclick=report() class = "link">Report</a>
+                        </span>
+                        <span class = "registerLink2">Is the machine Fixed? Click here to report 
+                            <a onclick=fix() class = "link">Fix</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- -------------------------------------------------------------------------------------------------- -->
+
+        <div id = "footer_container">
+            <footer id = "footer">
+                    <div class="footer-content">
+                        <h3>Laundry Management Tool</h3>
+                        <div id ="term" onclick = "func()">Terms and Privacy</div>
+                        <ul class="socials">
+                            <li><a href="https://github.com/noehoro/SDDProject"><i class="fa fa-github"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>copyright &copy;2022. designed by <span>Laundry master</span></p>
+                    </div>
+            </footer>
+        </div>
+    </div>
+
+    <div id="bg-model">
+    </div>
+    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
+    <script>
+
+        function GetURLParameter(sParam)
+        {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) 
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) 
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+        function report() {
+
+            let machineid = GetURLParameter('machine')
+            console.log("http://127.0.0.1:5000/report?machine=" + machineid);
+            $.ajax({
+
+                
+                type: "POST",
+                url: "http://127.0.0.1:5000/report?machine=" + machineid,
+                success:function(msg){
+                    alert("Machine Reported as Broken Successfully!")
+                }
+            })
+            console.log(machineid) 
+        }
+
+        function runmachine() {
+            let username = document.getElementById("username").value;
+            let machineid = GetURLParameter('machine')
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:5000/run-machine?machine=" + machineid + "&number=" + username,
+                success:function(msg){
+                    alert("Machine Started Successfully! Check your phone for confirmation!")
+                }
+            })
+        }
+
+        function fix() {
+
+            let machineid = GetURLParameter('machine')
+            // console.log("http://127.0.0.1:5000/fixed?machine=" + machineid);
+            $.ajax({                
+                type: "POST",
+                url: "http://127.0.0.1:5000/fixed?machine=" + machineid,
+                success:function(msg){
+
+                    alert("Machine fixed")
+                }
+            })
+            console.log(machineid) 
+        }
+
+    </script>
+
+    <script type="text/javascript" src="Resource/js/script.js"></script>
+
+
+
+
+</body>
+</html>

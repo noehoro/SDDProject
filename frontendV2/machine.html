@@ -13,7 +13,10 @@
     <link rel = "stylesheet" href = "Resource/css/style.css">
     <link rel = "stylesheet" href = "Resource/css/login.css">
     <link rel = "stylesheet" href = "Resource/css/footer.css">
+    <link rel = "stylesheet" href = "Resource/css/management.css">
     <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js" integrity="sha512-M72KfQy4kPuLYC6CeTrN0eA17U1lXEMrr5qEJC/40CLdZGC3HpwPS0esQLqBHnxty2FIcuNdP9EqwSOCLEVJXQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 <body>
@@ -22,7 +25,10 @@
         <div id="header_container"></div>
 
         <!--------------------------------------------body---------------------------------------------------------------->
+
+
         <div id="article">
+
             <!-- -----------------------Overall Status Box----------------------------- -->
             <div class = "secLvContainer" id="statusContainer" >
                 <div class="secLvContainerTitle">
@@ -32,7 +38,7 @@
                 <div id="statusBarContainer">
 
                     <div class="barContainer">
-                        <span class="chartText">Laundry Machine</span>
+                        <span class="chartText" >Laundry Machine</span>
                         
                         <div class="chart">
                             <div class="bar"></div>
@@ -72,7 +78,6 @@
                 <div id="GraphicViewContainer">
 
                     <div class="machineSection">
-
                         <div class="graphicViewTypeText">
                             Laundry Machine
                         </div>
@@ -81,29 +86,16 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "washAvaSec">
 
-
-                                
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "washUnAvaSec">
+
                             </div>
                         </div>
                     </div>
@@ -118,23 +110,17 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "dryAvaSec">
+
+                                
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "dryUnAvaSec">
+
                             </div>
                         </div>
                     </div>
@@ -149,23 +135,21 @@
                             <div class="graphicViewText">
                                 available:
                             </div>
-                            <div class="avaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="avaSection" id = "otherAvaSec">
+                                <!-- <div class="imgContainer hoverAva">
+                                    <img src="Resource/imgs/LM.svg" class="lm">
+                                    <div class="middle">
+                                        <div class="text">John Doe</div>
+                                    </div>
+                                </div> -->
+
                             </div>
                         </div>
                         <div class="machineContainer">
                             <div class="graphicViewText">
                                 unavailable:
                             </div>
-                            <div class="unavaSection">
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
-                                <img src="Resource/imgs/LM.svg" class="lm"/>
+                            <div class="unavaSection" id = "otherUnAvaSec">
                             </div>
                         </div>
                     </div>
@@ -181,55 +165,9 @@
         
     </div>
     <div id="bg-model"></div>
-
-    <script>
-
-        function increase(perc) {
-            //change status bar fill percentage
-            let bars = document.getElementsByClassName("bar");
-            for(let i = 0; i < bars.length; i++){
-                bars[i].style.setProperty('--m',perc[i].toString()+"%");
-            }
-            
-            // Change the variable to modify the speed of the number increasing from 0 to (ms)
-            let SPEED = 30;
-            // Retrieve the percentage value
-            let limitList = [];
-            let barList = document.getElementsByClassName("value1");
-            for(let i = 0; i < barList.length; i++){
-                barList[i].innerHTML = perc[i];
-                parseInt(limitList.push(barList[i].innerHTML),10);
-            }
-
-            for(let j = 0; j < limitList.length; j++){
-                for(let i = 0; i <= limitList[j]; i++) {
-                    setTimeout(function () {
-                        document.getElementsByClassName("value1")[j].innerHTML = i + "%";
-                    }, SPEED * i);
-                }
-            }
-        }
-
-        increase([7,78,8]);
-
-
-        function func(){
-            document.getElementById("bg-model").style.display = "flex";
-        }
-
-        var cont = document.getElementById("bg-model");
-        cont.addEventListener("click",function(event){
-            // console.log([...event.target.classList].indexOf('PT'));
-            if([...event.target.classList].indexOf('PT') === -1){
-                document.getElementById("bg-model").style.display = "none";
-            };
-        })
-    </script>
-
     <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="Resource/js/management.js"></script>
     <script type="text/javascript" src="Resource/js/script.js"></script>
-
-
 
 
 

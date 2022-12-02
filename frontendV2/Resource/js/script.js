@@ -1,17 +1,36 @@
-function func1(){
+function func(){
+    document.getElementById("bg-model").style.display = "flex";
+    // document.getElementsByTagName("body")[0].style.overflow = "hidden";
+}
+
+var cont = document.getElementById("bg-model");
+cont.addEventListener("click",function(event){
+    // console.log([...event.target.classList].indexOf('PT'));
+    if([...event.target.classList].indexOf('PT') === -1){
+        document.getElementById("bg-model").style.display = "none";
+        // document.getElementsByTagName("body")[0].style.overflow = "visible";
+    };
+})
+
+
+function redirectLogIn(){
     location.replace("managerLogin.html")
+}
+
+function redirectManager(){
+    location.replace("management.html")
 }
 
 // This header will be used throughout the pages
 let header = 
 '<div id="header"> Laundry Management Tool</div><div id = "nav">' +
     '<div id = "option">' +
-        '<div id = "" onclick=func() style="cursor: pointer;">MACHINES</div>' +
-        '<div id = "about" onclick= func1() style="cursor: pointer;">LOG IN</div>' +
+        '<div id = "" onclick=redirectManager() style="cursor: pointer;">MANAGE</div>' +
+        '<div id = "about" onclick= redirectLogIn() style="cursor: pointer;">LOG IN</div>' +
     '</div>'+
 '</div>'+
 '<div id="mai_logo_container">'+
-    '<img src="Resource/imgs/logo.PNG" id="mai_logo" ></div>'
+    '\<a href= \"/frontendV2\"> <img src="Resource/imgs/logo.PNG" id="mai_logo" ></a></div>'
 
 // This footer will be used throughout the pages
 let footer =  
@@ -50,7 +69,8 @@ let bgModel =
 '        <h4 class = "PT">You are responsible only for the data (e.g., files, URLs) that you send to the Mai\'s Power Meter Comparison Tool service. Mai\'s Power Meter Comparison Tool does not monitor customer content. Please remember that illicit exchanges of recordings and protected works and hacking harm artistic creation. And please respect the laws in force, especially those concerning intellectual and artistic property.</h4>'+
 '</div>'+
 
+
 $('#header_container').append(header);
-console.log("here");
 $('#footer_container').append(footer);
 $('#bg-model').append(bgModel);
+

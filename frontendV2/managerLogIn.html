@@ -61,19 +61,19 @@
     </div>
 
     <div id="bg-model"></div>
-
+    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
     <script>
-
+        // ---------------------------------------------------------------------------------------------
+        // Main log-in 
         function login(){
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
             
-            console.log(username)
+            // console.log(username)
 
             $.ajax({
                 type: "POST",
                 url:"http://127.0.0.1:5000/login?username=" + username + "&password=" + password,
-                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
                 success:function(msg){
 
                     console.log(msg);
@@ -81,7 +81,6 @@
                     let pass = msg["pass"];
                     let user = msg["user"];
                     
-
                     if(!loggedIn){
                         alert("Wrong username/password");
                     }else{
@@ -91,64 +90,10 @@
                 }
             })
         }
-
-        function has_logged_in(){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/loggedin",
-                success:function(msg){
-                    console.log(msg);
-                }
-            })
-        }
-
-        function get_site(){
-            $.ajax({
-                type: "GET",
-                url:"http://127.0.0.1:5000/getsite",
-                success:function(msg){
-                    console.log(msg);
-                }
-            })
-        }
-
-        function get_machines(){
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/dashboard?site=root",
-                success:function(msg){
-                    console.log(msg);
-                }
-            })
-        }
-
-        function new_machine(){
-            $.ajax({
-                type: "POST",
-                url:"http://127.0.0.1:5000/new-machine?time=60&site=root&type=wash",
-                // url:"http://127.0.0.1:5000/login?username=roodt&password=root" ,
-                success:function(msg){
-
-                    console.log(msg);
-                    // window.location.assign("../backend/qr_1408.svg");
-                    // let loggedIn = msg["loggedin"];
-                    // let pass = msg["pass"];
-                    // let user = msg["user"]
-                    
-
-                    // if(!loggedIn){
-                    //     alert("username/password/sitename already exist");
-                    // }else{
-                    //     alert("Logged in successfully");
-                    //     location.replace("management.html")
-                    // }
-                }
-            })
-        }
     </script>
 
 
-    <script type="text/javascript" src="Resource/js/jquery-3.6.1.min.js"></script>
+
     <script type="text/javascript" src="Resource/js/script.js"></script>
 
 

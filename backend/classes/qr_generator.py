@@ -26,7 +26,7 @@ class QRBlueprint(object):
 		self.base = '127.0.0.1:5500/'
 
 		# Create a QR code pointing to Run-machine front end
-		self.QRCode.create_qr(self.base + 'Run-Machine.html?machine=')
+		self.QRCode.create_qr(self.base + 'frontendV2/Run-Machine.html?machine=')
 
 		# Save to System
 		self.routing_code = self.QRCode.save_qr()
@@ -35,4 +35,4 @@ class QRBlueprint(object):
 		 	return "ERROR, Please Refresh the Page and Try again"
 
 		# Send the routing code back to the user
-		return (self.routing_code + '.svg')
+		return (self.routing_code + '.png')

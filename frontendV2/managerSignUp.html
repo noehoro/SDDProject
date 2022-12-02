@@ -55,6 +55,8 @@
     <div id="bg-model"></div>
 
     <script>
+        // ---------------------------------------------------------------------------------------------
+        // Main register
         function register(){
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
@@ -64,7 +66,6 @@
 
             $.ajax({
                 type: "POST",
-                // data: {username:'yogesh',password: 'FASDF',site_post: 'site1'},
                 url:"http://127.0.0.1:5000/register?username=" + username + "&password=" + password + "&site_post=" + siteName,
                 success:function(msg){
                     let infoExist = msg["exists"];

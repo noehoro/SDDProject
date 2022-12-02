@@ -17,7 +17,7 @@ class QR:
 	# the Extra Positional number that specifies wheteher a machine is wash, dry, etc.
 	def create_qr(self, ep: str) -> str:
 
-		self.code_image = qrcode.make(str(ep) + str(self.code))
+		self.code_image = qrcode.make(str(ep) + str(self.code) + '&')
 		return str(ep)+str(self.code_image)
 
 	# Saves QR code to system, tells caller where the qr code is saved. Files are generated with a random number
@@ -32,7 +32,7 @@ class QR:
 			return -1
 
 		# Name and save qr image
-		self.code_image.save('qr_'+ str(temp_code_num) + '.svg')
+		self.code_image.save('qr_'+ str(temp_code_num) + '.png')
 
 		# Tell Caller name of image file
 		return 'qr_' + str(temp_code_num)
