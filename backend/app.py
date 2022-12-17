@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, send_file
-from helpers.database import db, Site, User, Machine, Activity
+from classes.database import db, Site, User, Machine, Activity
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from classes.qr_generator import QRBlueprint
 from classes.auth import Auth
